@@ -7,12 +7,12 @@ import com.FamilyRecord.abstractApps.BaseEntity;
  */
 public class commonFile extends BaseEntity {
 
-    private int rId;
-    private String filePath;
-    private String fileName;
-    private int type;
-    private String creator;
-    private int isDelete;
+    private int rId;                //关联ablum
+    private String filePath;        //文件路径
+    private String fileName;        //文件名称
+    private int type;               //文件类型 1.照片 2.视频
+    private String creator;         //上传者
+    private int isDelete;           //是否删除
 
     public int getrId() {
         return rId;
