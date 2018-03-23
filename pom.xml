@@ -13,7 +13,19 @@
         <springversion>4.2.5.RELEASE</springversion>
         <axis2.version>1.7.3</axis2.version>
     </properties>
-
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <jdbc.host>127.0.0.1</jdbc.host>
+                <jdbc.username>root</jdbc.username>
+                <jdbc.password>root</jdbc.password>
+            </properties>
+        </profile>
+    </profiles>
     <dependencies>
 
         <dependency>

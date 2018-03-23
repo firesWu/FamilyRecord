@@ -7,9 +7,9 @@ import com.FamilyRecord.abstractApps.BaseEntity;
  */
 public class ablum extends BaseEntity {
 
-    private String albumName;   //Ïà²áÃû³Æ
-    private int type;           //Ïà²áÀàĞÍ 1.ÕÕÆ¬Ïà²á  2.ÊÓÆµÏà²á
-    private String creator;     //´´½¨ÈË
+    private String albumName;   //ç›¸å†Œåç§°
+    private int type;           //ç›¸å†Œç±»å‹ 1.ç…§ç‰‡ç›¸å†Œ  2.è§†é¢‘ç›¸å†Œ
+    private String creator;     //åˆ›å»ºäºº
 
     public String getAlbumName() {
         return albumName;

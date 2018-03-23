@@ -103,8 +103,8 @@ public class JsonUtilBase {
         try {
             rejson = oMapper.writeValueAsString(data);
         } catch (Exception var3) {
-            logger.error("retMap£∫" + data);
-            logger.error("genUpdateDataReturnJsonStr 2 json ◊™ªª ß∞‹°£\n", var3);
+            logger.error("retMapÔºö" + data);
+            logger.error("genUpdateDataReturnJsonStr 2 json ËΩ¨Êç¢Â§±Ë¥•„ÄÇ\n", var3);
         }
 
         return rejson;
@@ -117,8 +117,8 @@ public class JsonUtilBase {
         try {
             rejson = oMapper.writeValueAsString(remap);
         } catch (Exception var6) {
-            logger.error("retMap£∫" + data + "----success:" + success + "------mgs:" + mgs);
-            logger.error("genUpdateDataReturnJsonStr 2 json ◊™ªª ß∞‹°£\n", var6);
+            logger.error("retMapÔºö" + data + "----success:" + success + "------mgs:" + mgs);
+            logger.error("genUpdateDataReturnJsonStr 2 json ËΩ¨Êç¢Â§±Ë¥•„ÄÇ\n", var6);
         }
 
         return rejson;
@@ -131,8 +131,8 @@ public class JsonUtilBase {
         try {
             rejson = oMapper.writeValueAsString(remap);
         } catch (Exception var7) {
-            logger.error("retMap£∫" + data + "----success:" + success + "------mgs:" + mgs + "------code:" + code);
-            logger.error("genUpdateDataReturnJsonStr 2 json ◊™ªª ß∞‹°£\n", var7);
+            logger.error("retMapÔºö" + data + "----success:" + success + "------mgs:" + mgs + "------code:" + code);
+            logger.error("genUpdateDataReturnJsonStr 2 json ËΩ¨Êç¢Â§±Ë¥•„ÄÇ\n", var7);
         }
 
         return rejson;
@@ -152,8 +152,8 @@ public class JsonUtilBase {
         try {
             rejson = oMapper.writeValueAsString(data);
         } catch (Exception var3) {
-            logger.error("retMap£∫" + data);
-            logger.error("genUpdateDataReturnJsonStr 3 json ◊™ªª ß∞‹°£\n", var3);
+            logger.error("retMapÔºö" + data);
+            logger.error("genUpdateDataReturnJsonStr 3 json ËΩ¨Êç¢Â§±Ë¥•„ÄÇ\n", var3);
         }
 
         return rejson;
@@ -169,8 +169,8 @@ public class JsonUtilBase {
             logger.debug("json to outputStream time : " + (d2 - x));
             System.out.println("json to outputStream time : " + (d2 - x));
         } catch (Exception var6) {
-            logger.error("retMap£∫" + data);
-            logger.error("genUpdateDataReturnJsonStr 5 json ◊™ªª ß∞‹°£\n", var6);
+            logger.error("retMapÔºö" + data);
+            logger.error("genUpdateDataReturnJsonStr 5 json ËΩ¨Êç¢Â§±Ë¥•„ÄÇ\n", var6);
         }
 
     }

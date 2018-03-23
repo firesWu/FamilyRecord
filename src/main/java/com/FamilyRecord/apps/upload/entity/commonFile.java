@@ -7,12 +7,12 @@ import com.FamilyRecord.abstractApps.BaseEntity;
  */
 public class commonFile extends BaseEntity {
 
-    private int rId;                //¹ØÁªablum
-    private String filePath;        //ÎÄ¼şÂ·¾¶
-    private String fileName;        //ÎÄ¼şÃû³Æ
-    private int type;               //ÎÄ¼şÀàĞÍ 1.ÕÕÆ¬ 2.ÊÓÆµ
-    private String creator;         //ÉÏ´«Õß
-    private int isDelete;           //ÊÇ·ñÉ¾³ı
+    private int rId;                //å…³è”ablum
+    private String filePath;        //æ–‡ä»¶è·¯å¾„
+    private String fileName;        //æ–‡ä»¶åç§°
+    private int type;               //æ–‡ä»¶ç±»å‹ 1.ç…§ç‰‡ 2.è§†é¢‘
+    private String creator;         //ä¸Šä¼ è€…
+    private int isDelete;           //æ˜¯å¦åˆ é™¤
 
     public int getrId() {
         return rId;

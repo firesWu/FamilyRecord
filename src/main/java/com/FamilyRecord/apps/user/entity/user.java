@@ -7,10 +7,10 @@ import com.FamilyRecord.abstractApps.BaseEntity;
  */
 public class user extends BaseEntity {
 
-    private String account;     //用户账号
-    private String password;    //用户密码
-    private String nickName;    //用户昵称
-    private String birthday;    //用户生日
+    private String account;     //鐢ㄦ埛璐﹀彿
+    private String password;    //鐢ㄦ埛瀵嗙爜
+    private String nickName;    //鐢ㄦ埛鏄电О
+    private String birthday;    //鐢ㄦ埛鐢熸棩
 
     public String getAccount() {
         return account;
