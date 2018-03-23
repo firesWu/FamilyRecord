@@ -15,9 +15,20 @@
 		http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		">
-       <context:annotation-config />
-       <!-- ①：对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
-       <context:component-scan base-package="com.FamilyRecord" />
-
+   <context:annotation-config />
+   <!-- ①：对web包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+   <context:component-scan base-package="com.FamilyRecord" />
+    <!--项目中必须存在，文件可以是多个，但文件中的属性名不可以重复 -->
+    <bean id="app_config_properties"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false" />
+        <property name="locations">
+            <list>
+                <value>classpath*:appConf/jdbc.properties</value>
+            </list>
+        </property>
+        <property name="fileEncoding" value="utf-8" />
+    </bean>
     <import resource="spring-mvc.xml" />
+    <import resource="spring-mybatis.xml" />
 </beans>
