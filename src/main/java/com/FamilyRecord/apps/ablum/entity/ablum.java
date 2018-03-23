@@ -5,7 +5,7 @@ import com.FamilyRecord.abstractApps.BaseEntity;
 /**
  * Created by yuan on 2018/3/23.
  */
-public class ablum extends BaseEntity {
+public class Ablum extends BaseEntity {
 
     private String albumName;   //相册名称
     private int type;           //相册类型 1.照片相册  2.视频相册

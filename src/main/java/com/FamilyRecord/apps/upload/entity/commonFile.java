@@ -5,7 +5,7 @@ import com.FamilyRecord.abstractApps.BaseEntity;
 /**
  * Created by yuan on 2018/3/23.
  */
-public class commonFile extends BaseEntity {
+public class CommonFile extends BaseEntity {
 
     private int rId;                //关联ablum
     private String filePath;        //文件路径
