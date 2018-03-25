@@ -15,39 +15,39 @@ public class JsonUtils extends JsonUtilBase {
     public JsonUtils() {
     }
 
-    public static String genUpdateDataReturnJsonStr(boolean success, String mgs) {
-        HashMap remap = genUpdateDataReturnMap(success, mgs, (Object)null, (String)null);
+    public static String genUpdateDataReturnJsonStr(boolean success, String msg) {
+        HashMap remap = genUpdateDataReturnMap(success, msg, (Object)null, (String)null);
         String rejson = "";
 
         try {
             rejson = oMapper.writeValueAsString(remap);
         } catch (Exception var5) {
             logger.error("genUpdateDataReturnJsonStr 1 json 转换失败。\n", var5);
-            logger.error("mgs:" + mgs + "----success:" + success);
+            logger.error("msg:" + msg + "----success:" + success);
         }
 
         return rejson;
     }
 
-    public static <T> void genUpdateDataReturnJsonStr(boolean success, String mgs, T data, OutputStream os) {
-        HashMap remap = genUpdateDataReturnMap(success, mgs, data, (String)null);
+    public static <T> void genUpdateDataReturnJsonStr(boolean success, String msg, T data, OutputStream os) {
+        HashMap remap = genUpdateDataReturnMap(success, msg, data, (String)null);
 
         try {
             genUpdateDataReturnJsonStr(remap, os);
         } catch (Exception var6) {
-            logger.error("retMap：" + data + "----success:" + success + "------mgs:" + mgs);
+            logger.error("retMap：" + data + "----success:" + success + "------msg:" + msg);
             logger.error("genUpdateDataReturnJsonStr 7 json 转换失败。\n", var6);
         }
 
     }
 
-    public static <T> void genUpdateDataReturnJsonStr(boolean success, String mgs, T data, HttpServletResponse response) {
-        HashMap remap = genUpdateDataReturnMap(success, mgs, data, (String)null);
+    public static <T> void genUpdateDataReturnJsonStr(boolean success, String msg, T data, HttpServletResponse response) {
+        HashMap remap = genUpdateDataReturnMap(success, msg, data, (String)null);
 
         try {
             genUpdateDataReturnJsonStr(remap, response);
         } catch (Exception var6) {
-            logger.error("retMap：" + data + "----success:" + success + "------mgs:" + mgs);
+            logger.error("retMap：" + data + "----success:" + success + "------msg:" + msg);
             logger.error("genUpdateDataReturnJsonStr 6 json 转换失败。\n", var6);
         }
 
@@ -66,7 +66,7 @@ public class JsonUtils extends JsonUtilBase {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println(genUpdateDataReturnJsonStr(false, "mgs", "data", (String)"status"));
-        genUpdateDataReturnJsonStrByCode("mgs", "data", "status");
+        System.out.println(genUpdateDataReturnJsonStr(false, "msg", "data", (String)"status"));
+        genUpdateDataReturnJsonStrByCode("msg", "data", "status");
     }
 }

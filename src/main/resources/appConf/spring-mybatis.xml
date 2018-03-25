@@ -15,7 +15,7 @@
 
        <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
              init-method="init" destroy-method="close">
-              <!-- 基本属性 url、user、password -->
+              <!-- 基本属性 url、User、password -->
               <property name="url" value="${jdbc_url}" />
               <property name="username" value="${jdbc_user}" />
               <property name="password" value="${jdbc_password}" />
@@ -43,10 +43,10 @@
               <property name="filters" value="stat" />
        </bean>
 
-       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+       <bean id="sqlSessionFactory" class="com.FamilyRecord.core.FRSqlSessionFactoryBean">
               <property name="configLocation" value="classpath:appConf/mybatis-config.xml"></property>
               <property name="dataSource" ref="dataSource" />
-              <property name="typeAliasesPackage" value="com.FamilyRecord.apps.**.entity" />
+              <property name="typeAliasesPackage" value="com.FamilyRecord.apps.**.entity,com.FamilyRecord.dto" />
               <property name="mapperLocations">
                      <list>
                             <value>classpath:mapper/*.xml</value>

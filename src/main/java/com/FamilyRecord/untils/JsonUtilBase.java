@@ -110,40 +110,40 @@ public class JsonUtilBase {
         return rejson;
     }
 
-    public static <T> String genUpdateDataReturnJsonStr(boolean success, String mgs, T data) {
-        HashMap remap = genUpdateDataReturnMap(success, mgs, data, (String)null);
+    public static <T> String genUpdateDataReturnJsonStr(boolean success, String msg, T data) {
+        HashMap remap = genUpdateDataReturnMap(success, msg, data, (String)null);
         String rejson = "";
 
         try {
             rejson = oMapper.writeValueAsString(remap);
         } catch (Exception var6) {
-            logger.error("retMap：" + data + "----success:" + success + "------mgs:" + mgs);
+            logger.error("retMap：" + data + "----success:" + success + "------msg:" + msg);
             logger.error("genUpdateDataReturnJsonStr 2 json 转换失败。\n", var6);
         }
 
         return rejson;
     }
 
-    public static <T> String genUpdateDataReturnJsonStr(boolean success, String mgs, T data, String code) {
-        HashMap remap = genUpdateDataReturnMap(success, mgs, data, code);
+    public static <T> String genUpdateDataReturnJsonStr(boolean success, String msg, T data, String code) {
+        HashMap remap = genUpdateDataReturnMap(success, msg, data, code);
         String rejson = "";
 
         try {
             rejson = oMapper.writeValueAsString(remap);
         } catch (Exception var7) {
-            logger.error("retMap：" + data + "----success:" + success + "------mgs:" + mgs + "------code:" + code);
+            logger.error("retMap：" + data + "----success:" + success + "------msg:" + msg + "------code:" + code);
             logger.error("genUpdateDataReturnJsonStr 2 json 转换失败。\n", var7);
         }
 
         return rejson;
     }
 
-    public static <T> String genUpdateDataReturnJsonStrByCode(String code, String mgs, T data) {
-        return genUpdateDataReturnJsonStr(true, mgs, data, code);
+    public static <T> String genUpdateDataReturnJsonStrByCode(String code, String msg, T data) {
+        return genUpdateDataReturnJsonStr(true, msg, data, code);
     }
 
-    public static <T> String genUpdateDataReturnJsonStrByCode(int code, String mgs, T data) {
-        return genUpdateDataReturnJsonStr(true, mgs, data, String.valueOf(code));
+    public static <T> String genUpdateDataReturnJsonStrByCode(int code, String msg, T data) {
+        return genUpdateDataReturnJsonStr(true, msg, data, String.valueOf(code));
     }
 
     public static <T> String genUpdateDataReturnJsonStr(T data) {
@@ -175,10 +175,10 @@ public class JsonUtilBase {
 
     }
 
-    public static <T> HashMap genUpdateDataReturnMap(boolean success, String mgs, T data, String status) {
+    public static <T> HashMap genUpdateDataReturnMap(boolean success, String msg, T data, String status) {
         HashMap remap = new HashMap();
         remap.put("success", Boolean.valueOf(success));
-        remap.put("mgs", mgs);
+        remap.put("msg", msg);
         remap.put("data", data);
         remap.put("code", status);
         return remap;
