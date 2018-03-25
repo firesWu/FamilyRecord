@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="familyUser">
+
+        <insert id="insert" parameterType="FamilyUser">
+                insert family_user values(#{familyId},#{userId});
+        </insert>
+
+        <delete id="delete" parameterType="FamilyUser">
+                delete family_user WHERE familyId = #{familyId} and userId = #{userId};
+        </delete>
+
+</mapper>

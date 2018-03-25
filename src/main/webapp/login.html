@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Family Record</title>
+    <link href="css/bootstrap/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/bootstrap/signin.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/bootstrap/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="css/common.css" type="text/css" rel="stylesheet" media="all">
+
+    <script src="js/jquery.2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap/bootstrap-3.1.1.min.js"></script>
+    <script src="js/bootstrap/bootstrap.js"> </script>
+    <script src="js/bootstrap/moment.js"> </script>
+    <script src="js/bootstrap/moment-zh-cn.js"> </script>
+    <script src="js/bootstrap/bootstrap-datetimepicker.min.js"> </script>
+    <script src="js/common/common.js"> </script>
+    <script src="js/common/commonValidation.js"> </script>
+    <script src="js/login/login.js"> </script>
+    <script>
+        $(function(){
+            $('#register_birthday').datetimepicker({
+                viewMode : 'months',
+                format : ' YYYY-MM-DD',
+                sideBySide : true
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <div id="login_form"class="form-signin">
+        <h2 class="form-signin-heading">请登录</h2>
+        <label class="sr-only">账号</label>
+        <input type="text" name="account" class="form-control" placeholder="账号" required autofocus>
+        <label class="sr-only">密码</label>
+        <input type="password" name="password" class="form-control" placeholder="密码" required>
+        <button class="btn btn-lg btn-primary btn-block" onclick="loginUser('login_form')">登录</button>
+        <a href="javascript:;" class="pull-right" onclick="changeForm('login_form','register_form')">注册</a>
+    </div>
+
+    <div id="register_form" class="form-signin" hidden>
+        <h2 class="form-signin-heading">注册用户</h2>
+        <label class="sr-only">账号</label>
+        <input type="text" name="account" class="form-control" placeholder="账号" required autofocus>
+        <label class="sr-only">昵称</label>
+        <input type="text" name="nickName" class="form-control" placeholder="昵称" required autofocus>
+        <label class="sr-only">密码</label>
+        <input type="password" name="password" class="form-control" placeholder="密码" required>
+        <label class="sr-only">密码</label>
+        <input type="password" name="rePassword" class="form-control" placeholder="重复密码" required>
+        <div class='input-group date margin-bottom-10' id='register_birthday'>
+            <input type='text' name="birthday" class="form-control " placeholder="输入生日"  />
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" onclick="registerUser('register_form')">注册</button>
+        <a href="javascript:;" class="pull-right" onclick="changeForm('register_form','login_form')">登录</a>
+    </div>
+
+</div>
+</body>
+</html>

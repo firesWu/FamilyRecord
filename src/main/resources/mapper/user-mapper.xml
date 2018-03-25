@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+        <insert id="insert" parameterType="User">
+                insert user(account,password,nickName,birthday)
+                  values(#{account},#{password},#{nickName},#{birthday});
+        </insert>
+
+        <select id="select" parameterType="User" resultType="map">
+            select
+            id,
+            account,
+            password,
+            nickName,
+            birthday
+            From user
+            <trim prefix="WHERE" prefixOverrides="and">
+                <if test="account !=null and account !=''">
+                    and account = #{account}
+                </if>
+                <if test="password !=null and password !=''">
+                    and password = #{password}
+                </if>
+            </trim>
+        </select>
+
+        <select id="login" parameterType="User" resultType="map">
+                select
+                  id,
+                  account,
+                  password,
+                  nickName,
+                  birthday
+                From user
+                WHERE account = #{account} and password = #{password};
+        </select>
+
+        <select id="verLogin" parameterType="User" resultType="UserInfo">
+            SELECT
+            `user`.id,
+            `user`.account,
+            `user`.nickName,
+            `user`.birthday,
+            `user`.createTime,
+            family_group.`name` as groupName,
+            family_group.creator,
+            family_group.id as groupId
+            FROM
+            `user`
+            LEFT JOIN family_user on `user`.account = family_user.userId
+            LEFT JOIN family_group on family_user.familyId = family_group.id
+            <trim prefix="WHERE" prefixOverrides="and">
+                <if test="account !=null and account !=''">
+                    and `user`.account = #{account}
+                </if>
+                <if test="password !=null and password !=''">
+                    and `user`.password = #{password}
+                </if>
+            </trim>
+        </select>
+
+</mapper>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link href="../css/bootstrap/bootstrap.css" type="text/css" rel="stylesheet" media="all">
+    <link href="../css/bootstrap/signin.css" type="text/css" rel="stylesheet" media="all">
+    <link href="../css/bootstrap/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="all">
+    <link href="../css/common.css" type="text/css" rel="stylesheet" media="all">
+
+    <script src="../js/jquery.2.1.1.min.js"></script>
+    <script src="../js/bootstrap/bootstrap-3.1.1.min.js"></script>
+    <script src="../js/bootstrap/bootstrap.js"> </script>
+    <script src="../js/bootstrap/moment.js"> </script>
+    <script src="../js/bootstrap/moment-zh-cn.js"> </script>
+    <script src="../js/bootstrap/bootstrap-datetimepicker.min.js"> </script>
+    <script src="../js/common/common.js"> </script>
+    <script src="../js/common/commonValidation.js"> </script>
+    <script src="../js/familyManager/familyGroupCreate.js"> </script>
+</head>
+<body>
+    <div id="boring_wait">
+        年轻人，你还没加入家庭组哟。等待别人拉你进组还是
+        <a href="javascript:;" class="pull-right" onclick="changeForm('boring_wait','family_group_form')">创建家庭组</a>
+    </div>
+
+    <div id="family_group_form" class="form-signin" hidden>
+        <h2 class="form-signin-heading">创建家庭组</h2>
+        <label class="sr-only">炫酷家庭组名</label>
+        <input type="text" name="name" class="form-control margin-bottom-10" placeholder="炫酷家庭组名" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" onclick="createFamilyGroup('family_group_form')">创建</button>
+
+        <a href="javascript:;" class="pull-right" onclick="changeForm('family_group_form','boring_wait')">继续等待</a>
+    </div>
+</body>
+</html>

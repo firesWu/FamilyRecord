@@ -5,6 +5,7 @@ import com.FamilyRecord.abstractApps.BaseEntity;
 /**
  * Created by yuan on 2018/3/23.
  */
+
 public class User extends BaseEntity {
 
     private String account;     //用户账号
