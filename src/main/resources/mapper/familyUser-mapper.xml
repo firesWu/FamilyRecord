@@ -8,8 +8,22 @@
                 insert family_user values(#{familyId},#{userId});
         </insert>
 
+        <select id="select" parameterType="FamilyUser" resultType="MemberInfo">
+                SELECT
+                        family_user.familyId,
+                        family_user.userId,
+                        `user`.nickName
+                FROM
+                        family_user ,`user`
+                WHERE family_user.userId = user.account and family_user.familyId = #{familyId};
+        </select>
+
         <delete id="delete" parameterType="FamilyUser">
                 delete family_user WHERE familyId = #{familyId} and userId = #{userId};
         </delete>
+
+        <select id="judge" parameterType="FamilyUser" resultType="FamilyUser">
+                SELECT familyId,userId FROM family_user WHERE userId = #{userId};
+        </select>
 
 </mapper>

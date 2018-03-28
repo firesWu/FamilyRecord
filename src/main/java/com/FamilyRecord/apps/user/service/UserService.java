@@ -31,4 +31,10 @@ public class UserService extends BaseService {
         List userList = sqlSessionTemplate.selectList("user.verLogin",user);
         return userList;
     }
+
+    public boolean update(User user){
+        int i = sqlSessionTemplate.update("user.updateByAccount",user);
+        return i>0;
+    }
+
 }

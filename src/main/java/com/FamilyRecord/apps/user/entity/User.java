@@ -12,6 +12,7 @@ public class User extends BaseEntity {
     private String password;    //用户密码
     private String nickName;    //用户昵称
     private String birthday;    //用户生日
+    private String headImageUrl;//头像路径
 
     public String getAccount() {
         return account;
@@ -43,5 +44,13 @@ public class User extends BaseEntity {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getHeadImageUrl() {
+        return headImageUrl;
+    }
+
+    public void setHeadImageUrl(String headImageUrl) {
+        this.headImageUrl = headImageUrl;
     }
 }

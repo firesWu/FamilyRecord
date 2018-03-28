@@ -1,0 +1,6 @@
+target/
+.idea/
+src/main/java/com/FamilyRecord/HelloWorld.java
+src/main/resources/mapper/test.xml
+src/main/webapp/images/photo/
+src/main/webapp/images/headImage/

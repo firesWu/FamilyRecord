@@ -11,7 +11,6 @@
 
         <select id="select" parameterType="User" resultType="map">
             select
-            id,
             account,
             password,
             nickName,
@@ -29,7 +28,6 @@
 
         <select id="login" parameterType="User" resultType="map">
                 select
-                  id,
                   account,
                   password,
                   nickName,
@@ -40,10 +38,10 @@
 
         <select id="verLogin" parameterType="User" resultType="UserInfo">
             SELECT
-            `user`.id,
             `user`.account,
             `user`.nickName,
             `user`.birthday,
+            `user`.headImageUrl,
             `user`.createTime,
             family_group.`name` as groupName,
             family_group.creator,
@@ -61,5 +59,21 @@
                 </if>
             </trim>
         </select>
+
+        <update id="updateByAccount" parameterType="User">
+            update `user` SET
+            <trim suffixOverrides=",">
+                <if test="nickName != null and nickName != ''">
+                    nickName = #{nickName},
+                </if>
+                <if test="birthday != null and birthday != ''">
+                    birthday = #{birthday},
+                </if>
+                <if test="headImageUrl != null and headImageUrl != ''">
+                    headImageUrl = #{headImageUrl},
+                </if>
+            </trim>
+            WHERE account = #{account};
+        </update>
 
 </mapper>

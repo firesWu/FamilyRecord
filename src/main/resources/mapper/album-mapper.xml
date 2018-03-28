@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="album">
+
+       <insert id="insert" parameterType="Album">
+            insert album_name(groupId,albumName,type,creator)
+                VALUES (#{groupId},#{albumName},#{type},#{creator});
+       </insert>
+
+       <select id="selectAlbumInfo" parameterType="Album" resultType="AlbumInfo">
+              SELECT
+                     an.id,
+                     an.groupId,
+                     an.albumName,
+                     an.type,
+                     an.creator,
+                     an.createTime,
+                     cf.filePath
+              FROM
+                    album_name an
+              LEFT JOIN common_file cf ON an.groupId = #{groupId} and an.id = cf.rId and cf.createTime = (SELECT max(createTime) FROM common_file cf2 WHERE rId = cf.rId and type = 1 and isDelete = 0)
+              ORDER BY an.createTime;
+
+       </select>
+
+</mapper>

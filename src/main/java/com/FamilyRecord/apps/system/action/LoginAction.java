@@ -53,6 +53,7 @@ public class LoginAction extends BaseAction{
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return JsonUtils.genUpdateDataReturnJsonStr(false,"登录失败");
         }
         return JsonUtils.genUpdateDataReturnJsonStr(true,"",user);
 

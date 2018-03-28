@@ -42,4 +42,10 @@ public class UserAction {
 
     }
 
+    @RequestMapping("update")
+    public String update(User user){
+        boolean result = userService.update(user);
+        return result?JsonUtils.genUpdateDataReturnJsonStr(true,"修改成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"修改失败");
+    }
+
 }

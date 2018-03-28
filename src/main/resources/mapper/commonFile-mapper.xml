@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="commonFile">
+
+        <select id="select" parameterType="CommonFile" resultType="CommonFile">
+                SELECT
+                  common_file.id,
+                  common_file.rId,
+                  common_file.filePath,
+                  common_file.fileName,
+                  common_file.type,
+                  common_file.creator
+                FROM
+                  common_file
+                <trim prefix="WHERE" prefixOverrides="and">
+                        common_file.isDelete = 0
+                        <if test="rId != null and rId != ''">
+                                and common_file.rId = #{rId}
+                        </if>
+                        <if test="type != null and type != ''">
+                                and common_file.type = #{type}
+                        </if>
+                </trim>
+                ORDER BY createTime;
+        </select>
+
+        <insert id="insertFiles" parameterType="java.util.List">
+            insert common_file(rId,filePath,fileName,type,creator)
+            VALUES
+            <foreach collection="list" item="item" separator=",">
+                (#{item.rId},#{item.filePath},#{item.fileName},#{item.type},#{item.creator})
+            </foreach>
+        </insert>
+
+</mapper>

@@ -29,7 +29,7 @@
              class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
               <property name="defaultEncoding" value="utf-8"></property>
               <!-- 上传总文件之50M -->
-              <property name="maxUploadSize" value="52428800"></property>
+              <property name="maxUploadSize" value="5242880000"></property>
               <property name="maxInMemorySize" value="40960"></property>
        </bean>
 </beans>
