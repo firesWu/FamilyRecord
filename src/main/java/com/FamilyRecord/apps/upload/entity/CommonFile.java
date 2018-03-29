@@ -12,7 +12,7 @@ public class CommonFile extends BaseEntity {
     private String fileName;        //文件名称
     private int type;               //文件类型 1.照片 2.视频
     private String creator;         //上传者
-    private int isDelete;           //是否删除
+    private String read;            //是否已读
 
     public int getrId() {
         return rId;
@@ -52,13 +52,5 @@ public class CommonFile extends BaseEntity {
 
     public void setCreator(String creator) {
         this.creator = creator;
-    }
-
-    public int getIsDelete() {
-        return isDelete;
-    }
-
-    public void setIsDelete(int isDelete) {
-        this.isDelete = isDelete;
     }
 }
