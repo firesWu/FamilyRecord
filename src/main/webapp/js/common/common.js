@@ -122,6 +122,12 @@ var changeForm = function(form1,form2){
     $("#"+form2).show();
 };
 
+var openForm = function(formId,name){
+    $("div[name="+name+"]").hide();
+    $("#"+formId).show();
+}
+
+
 //初始化fileIput组件
 var initFileInput = function(id, uploadUrl,fileType){
     console.log($("#"+id));

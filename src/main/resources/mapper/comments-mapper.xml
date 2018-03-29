@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comments">
+       <insert id="insert" parameterType="Comments">
+              insert comments(articleId,parentId,replyId,comment,floor)
+              VALUES (#{articleId},#{parentId},#{replyId},#{comment},
+              <choose>
+                     <when test="floor != null and floor !=''">#{floor}</when>
+                     <otherwise>IFNULL((select max(cf.floor) from comments cf WHERE cf.articleId = #{articleId}),1)+1</otherwise>
+              </choose>
+              );
+       </insert>
+
+       <select id="select" parameterType="Comments" resultType="Comments">
+              SELECT
+                comments.id,
+                comments.articleId,
+                comments.parentId,
+                comments.replyId,
+                comments.`comment`,
+                comments.floor,
+                comments.createTime
+              FROM
+                comments
+              WHERE
+                comments.isDelete = 0 and comments.articleId = #{articleId}
+              ORDER by floor,createTime
+
+       </select>
+</mapper>

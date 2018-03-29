@@ -51,18 +51,16 @@
 				  <div>
 					  <ul class="nav navbar-nav">
 						<li><a href="#">首页</a></li>
-						<li><a href="#">主题帖</a></li>
-						<li><a href="#" onclick="selectAlbumInfo('album_list')">相册</a></li>
-						<li><a href="#" onclick="selectVideoList('video_list')">视频</a></li>
+						<li><a href="#" onclick="openArticlePart()">主题帖</a></li>
+						<li><a href="#" onclick="openPhotoPart()">相册</a></li>
+						<li><a href="#" onclick="openVideoPart()">视频</a></li>
 					  </ul>
 					   <ul class="nav navbar-nav navbar-right">
 						  <li class="dropdown">
 							  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="images/headImage/headImage.jpg" style="width:20px;height:20px;" alt=""/>Batman</a>
 							  <ul class="dropdown-menu">
-								<li><a href="#">Profile</a></li>
-								<li><a href="#">Sign in</a></li>
-								<li><a href="#">Settings</a></li>
-								<li><a href="#">Logout</a></li>
+								<li><a href="#" onclick="openSettingPart()">个人设置</a></li>
+								<li><a href="#">注销</a></li>
 							  </ul>
 						  </li>
 					  </ul>
@@ -76,75 +74,193 @@
 	<div class="container" style="background-color: #080808;width:67%" >
 
 		<!-- 主题帖 -->
-		<div id="article_manage">
+		<div id="article_manage" name="model1" hidden>
 			<div style="padding-top:10px">
-				<button class="btn btn-primary" >发帖</button>
-				<div id="create_article_form">
-					<div class="btn-toolbar" data-role="editor-toolbar" data-target="#article_editor">
-						<div class="btn-group">
-							<a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li>
-								<li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li>
-								<li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li>
-								<li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li>
-								<li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li>
-								<li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li>
-								<li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li>
-								<li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li>
-								<li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li>
-								<li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li>
-								<li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li>
-								<li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li>
-								<li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li>
-								<li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li>
-								<li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li>
-							</ul>
-						</div>
-						<div class="btn-group editor-group">
-							<a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-								<li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-								<li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
-							</ul>
-						</div>
-						<div class="btn-group">
-							<a class="btn editor-btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-							<a class="btn editor-btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-							<a class="btn editor-btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
-							<a class="btn editor-btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-						</div>
-						<div class="btn-group">
-							<a class="btn editor-btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
-							<a class="btn editor-btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
-							<a class="btn editor-btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-							<a class="btn editor-btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
-						</div>
-						<div class="btn-group">
-							<a class="btn editor-btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-							<a class="btn editor-btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-							<a class="btn editor-btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-							<a class="btn editor-btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-						</div>
+				<div id="article_list_show" name="model_article">
+					<button class="btn btn-primary" onclick="openForm('create_article_form','model_article')">发帖</button>
+					<ul id="article_list"></ul>
+				</div>
+				<div id="article_show"  name="model_article" hidden>
+					<button class="btn btn-primary" onclick="openForm('article_list_show','model_article')">返回</button>
+					<table class="table table-bordered">
+						<tr>
+							<td>标题</td>
+							<td id="article_title"></td>
+						</tr>
+						<tr>
+							<td>内容</td>
+							<td id="article_content" class="editor"></td>
+						</tr>
+						<tbody id="comment_list"></tbody>
+						<tr>
+							<td>回复</td>
+							<td><input type="text" id="reply_article0" /><button onclick="replyArticle('','','reply_article0')">回复</button></td>
+						</tr>
+					</table>
+				</div>
+				<div id="create_article_form"  name="model_article" hidden>
+					<table class="table table-bordered" >
+						<input type="hidden" id="article_id" name="id" />
+						<tr>
+							<td>标题</td>
+							<td><input type="text" name="title" class="center-block"/> </td>
+						</tr>
+						<tr>
+							<td>内容</td>
+							<td>
+								<div>
+									<div class="btn-toolbar" data-role="editor-toolbar" data-target="#article_editor">
+										<div class="btn-group">
+											<a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+											<ul class="dropdown-menu">
+												<li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li>
+												<li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li>
+												<li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li>
+												<li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li>
+												<li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li>
+												<li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li>
+												<li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li>
+												<li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li>
+												<li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li>
+												<li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li>
+												<li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li>
+												<li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li>
+												<li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li>
+												<li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li>
+												<li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li>
+											</ul>
+										</div>
+										<div class="btn-group editor-group">
+											<a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+											<ul class="dropdown-menu">
+												<li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+												<li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+												<li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+											</ul>
+										</div>
+										<div class="btn-group">
+											<a class="btn editor-btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+											<a class="btn editor-btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+											<a class="btn editor-btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+											<a class="btn editor-btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+										</div>
+										<div class="btn-group">
+											<a class="btn editor-btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+											<a class="btn editor-btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+											<a class="btn editor-btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+											<a class="btn editor-btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+										</div>
+										<div class="btn-group">
+											<a class="btn editor-btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+											<a class="btn editor-btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+											<a class="btn editor-btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+											<a class="btn editor-btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+										</div>
 
-						<div class="btn-group">
-							<a class="btn editor-btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
-							<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;"/>
-						</div>
-						<div class="btn-group">
-							<a class="btn editor-btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-							<a class="btn editor-btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-						</div>
-					</div>
-					</div>
-					<div id="article_editor" class="editor" style="margin-top: 10px"></div>
+										<div class="btn-group">
+											<a class="btn editor-btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
+											<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;"/>
+										</div>
+										<div class="btn-group">
+											<a class="btn editor-btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+											<a class="btn editor-btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+										</div>
+									</div>
+								</div>
+									<div id="article_editor" class="editor" style="margin-top: 10px"></div>
+							</td>
+						</tr>
+					</table>
+					<button class="btn btn-primary pull-right" onclick="createArticle('create_article_form','article_editor')">发表</button>
 				</div>
 			</div>
 		</div>
+		<!-- 主题帖 end -->
+
+		<!-- 相册模块 -->
+		<div id="album_manager"  name="model1" hidden>
+			<div id="album_page" name="model_album">
+				<div style="padding-top:10px">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#create_album">创建相册</button>
+					<!-- 模态框（Modal） -->
+					<div class="modal fade" id="create_album" tabindex="-1" role="dialog" aria-labelledby="create_album_label" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="create_album_label">
+										添加成员
+									</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group" id="create_album_form">
+										<label class="">相册名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+										<input type="text" name="albumName" class="" placeholder="相册名称">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary" onclick="createAlbum('create_album_form')">
+										创建
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
+				</div>
+
+				<div id="album_list" class="margin-top-3" style="padding-left: 30px">
+				</div>
+			</div>
+
+			<div id="photo_page" name="model_album" hidden>
+				<div style="padding-top:10px">
+					<button class="btn btn-primary" data-toggle="modal" data-target="#upload_photo_modal">上传照片</button>
+					<button class="btn btn-primary" onclick="openForm('album_page','model_album')">返回</button>
+					<!-- 模态框（Modal） -->
+					<div class="modal fade" id="upload_photo_modal" tabindex="-1" role="dialog" aria-labelledby="upload_photo_label" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title" id="upload_photo_label">
+										添加成员
+									</h4>
+								</div>
+								<div class="modal-body">
+									<form class="file-input-ajax-new" id="upload_photo_form">
+										<input id="upload_photo_file" name="photo" multiple type="file" class="file-loading" >
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">关闭
+									</button>
+									<button type="button" class="btn btn-primary" onclick="uploadPhoto('upload_photo_form','upload_photo_modal')">
+										创建
+									</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal -->
+					</div>
+				</div>
+				<div id="photo_list" class="margin-top-3" style="padding-left: 30px"></div>
+				<!-- 模态框（Modal） -->
+				<div class="modal fade" id="photo_show" tabindex="-1" role="dialog" aria-labelledby="photo_show_label" aria-hidden="true">
+					<div class="modal-dialog" >
+						<div class="modal-content">
+							<div class="modal-header">
+								<div class="modal-body kv-zoom-body file-zoom-content krajee-default">
+									<img id="photo_preview" style="width:auto;height:auto;max-width:100%;max-height:100%;" class="file-preview-image kv-preview-data rotate-55608 is-landscape-gt4 file-zoom-detail" src="">
+								</div>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal -->
+				</div>
+			</div>
+		</div>
+		<!-- 相册模块 end -->
 
 		<!-- 视频模块 begin -->
-		<div id="video_manager" hidden>
+		<div id="video_manager"  name="model1" hidden>
 			<div style="padding-top:10px">
 				<button class="btn btn-primary" data-toggle="modal" data-target="#upload_video_modal">上传视频</button>
 				<!-- 模态框（Modal） -->
@@ -187,104 +303,19 @@
 					</div><!-- /.modal-content -->
 				</div><!-- /.modal -->
 			</div>
-
 		</div>
-
-		<!-- 相册模块 -->
-		<div id="album_manager" hidden>
-			<div id="album_page">
-				<div style="padding-top:10px">
-					<button class="btn btn-primary" data-toggle="modal" data-target="#create_album">创建相册</button>
-					<!-- 模态框（Modal） -->
-					<div class="modal fade" id="create_album" tabindex="-1" role="dialog" aria-labelledby="create_album_label" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="create_album_label">
-										添加成员
-									</h4>
-								</div>
-								<div class="modal-body">
-									<div class="form-group" id="create_album_form">
-										<label class="">相册名称&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
-										<input type="text" name="albumName" class="" placeholder="相册名称">
-									</div>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-dismiss="modal">关闭
-									</button>
-									<button type="button" class="btn btn-primary" onclick="createAlbum('create_album_form')">
-										创建
-									</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal -->
-					</div>
-				</div>
-
-				<div id="album_list" class="margin-top-3" style="padding-left: 30px">
-				</div>
-			</div>
-
-			<div id="photo_page" hidden>
-
-				<div style="padding-top:10px">
-					<button class="btn btn-primary" data-toggle="modal" data-target="#upload_photo_modal">上传照片</button>
-					<button class="btn btn-primary" onclick="changeForm('photo_page','album_page')">返回</button>
-					<!-- 模态框（Modal） -->
-					<div class="modal fade" id="upload_photo_modal" tabindex="-1" role="dialog" aria-labelledby="upload_photo_label" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h4 class="modal-title" id="upload_photo_label">
-										添加成员
-									</h4>
-								</div>
-								<div class="modal-body">
-									<form class="file-input-ajax-new" id="upload_photo_form">
-										<input id="upload_photo_file" name="photo" multiple type="file" class="file-loading" >
-									</form>
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-dismiss="modal">关闭
-									</button>
-									<button type="button" class="btn btn-primary" onclick="uploadPhoto('upload_photo_form','upload_photo_modal')">
-										创建
-									</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal -->
-					</div>
-				</div>
-				<div id="photo_list" class="margin-top-3" style="padding-left: 30px">
-
-				</div>
-				<!-- 模态框（Modal） -->
-				<div class="modal fade" id="photo_show" tabindex="-1" role="dialog" aria-labelledby="photo_show_label" aria-hidden="true">
-					<div class="modal-dialog" >
-						<div class="modal-content">
-							<div class="modal-header">
-								<div class="modal-body kv-zoom-body file-zoom-content krajee-default">
-									<img id="photo_preview" style="width:auto;height:auto;max-width:100%;max-height:100%;" class="file-preview-image kv-preview-data rotate-55608 is-landscape-gt4 file-zoom-detail" src="">
-								</div>
-							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal -->
-			</div>
-
-		</div>
-
+		<!-- 视频模块 end -->
 
 		<!--用户管理 begin -->
-		<div id="user_setting" class="row" style="padding-top: 10px;" hidden>
+		<div id="user_setting" class="row" style="padding-top: 10px;"  name="model1" hidden>
 			<div class="col-xs-2">
 				<ul class="nav" >
-					<li><a href="#" onclick="showUserMangerForm('person_setting')">个人设置</a></li>
-					<li><a href="#" onclick="showUserMangerForm('member_manager')">成员管理</a></li>
-					<li><a href="#" onclick="showUserMangerForm('message_form')"> 消息中心</a></li>
+					<li><a href="#" onclick="openForm('person_setting','model_user_setting')">个人设置</a></li>
+					<li><a href="#" onclick="openForm('member_manager','model_user_setting')">成员管理</a></li>
+					<li><a href="#" onclick="openForm('message_form','model_user_setting')"> 消息中心</a></li>
 				</ul>
 			</div>
-			<div id="person_setting">
+			<div id="person_setting" name="model_user_setting">
 				<div><h>个人设置</h></div>
 
 				<div id="user_form" class="form-signin pull-left">
@@ -387,7 +418,7 @@
 
 			</div>
 
-			<div id="member_manager" hidden>
+			<div id="member_manager"  name="model_user_setting" hidden>
 				<div><h>成员管理</h></div>
 
 				<div class="col-xs-5" style="margin-top: 15px;">
@@ -440,7 +471,7 @@
 
 			</div>
 
-			<div id="message_form" hidden></div>
+			<div id="message_form" name="model_user_setting" hidden></div>
 		</div>
 		<!-- 用户管理页面 end -->
 	</div>

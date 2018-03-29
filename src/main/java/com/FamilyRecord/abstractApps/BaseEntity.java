@@ -5,14 +5,15 @@ package com.FamilyRecord.abstractApps;
  */
 public abstract class BaseEntity {
 
-    private int id;
+    private String id;
     private String createTime;
+    private int isDelete;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -22,5 +23,13 @@ public abstract class BaseEntity {
 
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
+    }
+
+    public int getIsDelete() {
+        return isDelete;
+    }
+
+    public void setIsDelete(int isDelete) {
+        this.isDelete = isDelete;
     }
 }

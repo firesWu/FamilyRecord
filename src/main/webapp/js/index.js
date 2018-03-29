@@ -3,8 +3,8 @@
  */
 
 $(function(){
-    //verLogin();
-    //judgeFamilyGroup();
+    verLogin();
+    judgeFamilyGroup();
     $('#article_editor').wysiwyg();
 
     $('#avatarInput').on('change', function(e) {
@@ -53,6 +53,141 @@ $(function(){
     });
 
 });
+/********************************************  主题帖 begin ********************************************/
+
+var createArticleUrl = "/" + projectName + "/article/createArticle.do";
+var selectArticleUrl = "/" + projectName + "/article/selectArticle.do";
+var replyArticleUrl = "/" + projectName + "/article/replyArticle.do";
+var selectCommentUrl = "/" + projectName + "/article/selectComments.do";
+
+var openArticlePart = function(){
+
+    selectArticle(1);
+    openForm("article_manage","model1");
+
+};
+
+var createArticle = function(formId,articleId){
+
+    var params = formToJsonstr(formId);
+    params.rId = userInfo.groupId;
+    params.creator = userInfo.account;
+    params.content = $("#"+articleId).html();
+
+    ajaxFunction(createArticleUrl,params,function(result){
+
+        if(result.success){
+            selectArticle(1);
+            openForm('article_show_list','model_article');
+            console.log(result.msg);
+        }else{
+            console.log(result.msg);
+        }
+
+    });
+
+};
+
+var selectArticle = function(pageNum){
+
+    var params = {};
+    params.pageNum = pageNum || 1;
+    params.pageSize = 10;
+    params.rId = userInfo.groupId;
+
+    ajaxFunction(selectArticleUrl,params,function(result){
+        if(result.success){
+            var data = result.data.list;
+            var str = "";
+            for(var i = 0; i < data.length;i++){
+                str += "<li class='list-group-item' onclick=\'openArticle(" + JSON.stringify(data[i]) + ")\'>" + data[i].title + "</li>";
+            }
+            $("#article_list").html(str);
+        }
+    });
+
+};
+
+var articleInfo;
+var openArticle = function(result){
+    articleInfo = result;
+    for(var key in result){
+        $("#article_"+key).html(result[key]);
+    }
+
+    selectComments(1);
+    openForm('article_show','model_article');
+};
+
+var articleCommentParentId;
+
+var replyReady = function(result,showReplyFormId){
+    articleCommentParentId = result.replyId;
+
+    $("div[name = replyFormDiv]").hide();
+    $("#"+showReplyFormId).show();
+
+};
+
+var replyOtherUser = function(floor,replyContentId){
+    replyArticle(floor,articleCommentParentId, replyContentId);
+};
+
+var replyArticle = function(floor,parentId,replyContentId){
+    var params = {};
+    params.comment = $("#"+replyContentId).val();
+
+    if(!isNotNull(params.comment)){
+        alert("评论不允许为空");
+        return ;
+    }
+
+    params.parentId = parentId || articleInfo.creator;
+    params.floor = floor;
+    params.replyId = userInfo.account;
+    params.articleId = articleInfo.id;
+
+
+    ajaxFunction(replyArticleUrl,params,function(result){
+        if(result.success){
+            selectComments(1);
+        }
+    });
+
+};
+
+var selectComments = function(pageNum){
+
+    var params = {};
+    params.articleId = articleInfo.id;
+    params.pageNum = pageNum;
+    params.pageSize = 10;
+    ajaxFunction(selectCommentUrl,params,function(result){
+
+        if(result.success){
+            var data = result.data.list;
+            var str = "";
+            for(var i = 0;i<data.length;i++){
+                var floor = data[i].floor;
+                str += "<tr> <td>" + data[i].replyId +"</td> <td> <div>" + data[i].comment +"</div> <ul class='center-block'>";
+                while(1){
+                    if(i+1>= data.length || data[i+1].floor != floor) break;
+                    i++;
+                    str += "<li>"+ data[i].replyId + "回复" + data[i].parentId + "：" + data[i].comment +" <a href='##' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</a> </li>";
+
+                }
+                str += "<button class='pull-right' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</button>"
+                        + "<div name='replyFormDiv'style='display:none;' id='articleReplyForm"+ (data[i].floor) +"'><input type='text' id='reply_article"+ data[i].floor +"' /><button onclick='replyOtherUser(\" "+ data[i].floor +" \",\"reply_article"+ data[i].floor +"\")'>回复</button></div></td></tr>";
+            }
+
+            $("#comment_list").html(str);
+        }
+
+    })
+
+};
+
+/********************************************  主题帖 end ********************************************/
 
 /********************************************  相册模块 begin ********************************************/
 
@@ -62,66 +197,14 @@ var selectPhotoOrVideoUrl = "/" + projectName + "/commonFile/selectPhotoOrVideo.
 var uploadPhotoOrVideoUrl = "/" + projectName + "/fileUpload/upload.do";
 var albumInfo = {id:1};
 
-
-//视频模块
-var selectVideoList = function(){
-
-    var params = {};
-    params.rId = userInfo.groupId;
-    params.type=2;
-
-    ajaxFunction(selectPhotoOrVideoUrl,params,function(result){
-
-        if(result.success){
-            var data = result.data;
-            var str = "";
-
-            for(var i = 0 ; i < data.length ;i++){
-                str += "<div class='pull-left album' ><video  onclick='videoPreview(\""+ data[i].filePath+"\")' src='"+"/"+projectName+"/" + (data[i].filePath) +"' controls='controls' class='family_record_photo img-thumbnail' /></div>";
-            }
-
-            $("#video_list").html(str);
-            initFileInput('upload_video_file',"#",['avi','wmv','mpeg','mp4','mov','mkv','flv','f4v','m4v','rmvb','rm','3gp','dat','ts','mts','vob']);
-        }else{
-            console.log(result.msg);
-        }
-
-    });
-
-};
-
-var videoPreview = function(path){
-    $("#video_show").modal("show");
-    $("#video_preview").attr("src","/"+projectName + "/" + path);
-    $("#video_show").on("hide.bs.modal",function(){
-        $("#video_preview").attr("src","");
-    });
-};
-
-var uploadVideo = function(formId,showFormId){
-
-    var params = {};
-    params.type = 2;
-    params.creator = userInfo.account;
-    params.rId = userInfo.groupId;
-
-    fileUpload($("#"+formId),"uploadVideoCallback",params,uploadPhotoOrVideoUrl);
-
-    $("#"+showFormId).modal("hide");
-};
-
-var uploadVideoCallback = function(result){
-
-    if(result.success){
-        selectVideoList();
-        console.log(result.msg);
-    }else{
-        console.log(result.msg);
-    }
-
-};
-
 //相册模块
+var openPhotoPart = function(){
+
+    openForm("album_manager","model1");
+    selectAlbumInfo('album_list')
+
+};
+
 var createAlbum = function(formId){
 
     var params = formToJsonstr(formId);
@@ -192,7 +275,7 @@ var openAlbum = function(album){
             }
 
             $("#photo_list").html(str);
-            changeForm("album_page","photo_page");
+            openForm("photo_page","model_album");
             initFileInput('upload_photo_file',"#",['jpg','png']);
         }else{
             console.log(result.msg);
@@ -230,20 +313,82 @@ var uploadPhotoCallback = function(result){
 
 };
 
+//视频模块
+var openVideoPart = function(){
+
+    openForm("video_manager","model1");
+    selectVideoList('video_list');
+
+};
+
+var selectVideoList = function(){
+
+    var params = {};
+    params.rId = userInfo.groupId;
+    params.type=2;
+
+    ajaxFunction(selectPhotoOrVideoUrl,params,function(result){
+
+        if(result.success){
+            var data = result.data;
+            var str = "";
+
+            for(var i = 0 ; i < data.length ;i++){
+                str += "<div class='pull-left album' ><video  onclick='videoPreview(\""+ data[i].filePath+"\")' src='"+"/"+projectName+"/" + (data[i].filePath) +"' controls='controls' class='family_record_photo img-thumbnail' /></div>";
+            }
+
+            $("#video_list").html(str);
+            initFileInput('upload_video_file',"#",['avi','wmv','mpeg','mp4','mov','mkv','flv','f4v','m4v','rmvb','rm','3gp','dat','ts','mts','vob']);
+        }else{
+            console.log(result.msg);
+        }
+
+    });
+
+};
+
+var videoPreview = function(path){
+    $("#video_show").modal("show");
+    $("#video_preview").attr("src","/"+projectName + "/" + path);
+    $("#video_show").on("hide.bs.modal",function(){
+        $("#video_preview").attr("src","");
+    });
+};
+
+var uploadVideo = function(formId,showFormId){
+
+    var params = {};
+    params.type = 2;
+    params.creator = userInfo.account;
+    params.rId = userInfo.groupId;
+
+    fileUpload($("#"+formId),"uploadVideoCallback",params,uploadPhotoOrVideoUrl);
+
+    $("#"+showFormId).modal("hide");
+};
+
+var uploadVideoCallback = function(result){
+
+    if(result.success){
+        selectVideoList();
+        console.log(result.msg);
+    }else{
+        console.log(result.msg);
+    }
+
+};
+
+
 /********************************************  相册模块 end ********************************************/
 
 
 /********************************************  用户管理模块 begin ********************************************/
 
-var showUserMangerForm = function(formId){
+var openSettingPart = function(){
 
-    $("#person_setting").hide();
-    $("#member_manager").hide();
-    $("#message_form").hide();
+    openForm("user_setting","model1");
 
-    $("#" + formId).show();
-
-}
+};
 
 /********************************************  个人设置模块  ********************************************/
 

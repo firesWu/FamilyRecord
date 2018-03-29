@@ -3,4 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="article">
+
+        <insert id="insert" parameterType="Article">
+                insert article(rId,title,content,creator) VALUES (#{rId},#{title},#{content},#{creator});
+        </insert>
+
+        <select id="select" parameterType="Article" resultType="Article">
+                SELECT
+                  article.id,
+                  article.rId,
+                  article.title,
+                  article.content,
+                  article.creator,
+                  article.createTime
+                FROM
+                  article
+                WHERE isDelete = 0
+                <trim>
+                        <if test="rId != null and rId !=''">
+                                and rId = #{rId}
+                        </if>
+                </trim>
+        </select>
+
 </mapper>

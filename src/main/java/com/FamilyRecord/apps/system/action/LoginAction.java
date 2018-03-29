@@ -46,6 +46,8 @@ public class LoginAction extends BaseAction{
             if (userList.size()>0){
                 request.getSession().setAttribute(random,userList.get(0).get("account"));
                 CookieUtils.setCookie(response, "roleCookie", random);
+            }else{
+                return JsonUtils.genUpdateDataReturnJsonStr(false,"登录失败");
             }
 
             if(userList.size()>0){

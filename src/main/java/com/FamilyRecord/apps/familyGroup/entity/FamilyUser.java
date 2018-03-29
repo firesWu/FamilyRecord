@@ -5,14 +5,14 @@ package com.FamilyRecord.apps.familyGroup.entity;
  */
 public class FamilyUser {
 
-    private int familyId;
+    private String familyId;
     private String userId;
 
-    public int getFamilyId() {
+    public String getFamilyId() {
         return familyId;
     }
 
-    public void setFamilyId(int familyId) {
+    public void setFamilyId(String familyId) {
         this.familyId = familyId;
     }
 
