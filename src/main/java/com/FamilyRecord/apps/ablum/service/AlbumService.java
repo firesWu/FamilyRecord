@@ -21,4 +21,8 @@ public class AlbumService extends BaseService{
         return sqlSessionTemplate.selectList("album.selectAlbumInfo",album);
     }
 
+    public boolean deleteAlbum(String id){
+        int i = sqlSessionTemplate.update("album.deleteAlbum",id);
+        return i>0;
+    }
 }

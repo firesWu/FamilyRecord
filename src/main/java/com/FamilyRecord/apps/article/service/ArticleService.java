@@ -18,9 +18,19 @@ public class ArticleService extends BaseService {
         return i>0;
     }
 
+    public boolean updateArticle(Article article){
+        int i = sqlSessionTemplate.insert("article.update",article);
+        return i>0;
+    }
+
     public Page selectArticle(Article article, RowBounds rowBounds){
         return (Page)sqlSessionTemplate.selectList("article.select", article, rowBounds);
     }
+
+    public boolean deleteArticle(String id){
+        int i = sqlSessionTemplate.update("article.deleteArticle",id);
+        return i>0;
+    };
 
     public Page selectComments(Comments comments, RowBounds rowBounds){
         return (Page)sqlSessionTemplate.selectList("comments.select",comments,rowBounds);

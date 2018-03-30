@@ -25,4 +25,7 @@
 
        </select>
 
+        <update id="deleteAlbum" parameterType="Integer">
+            UPDATE album_name SET isDelete = 0 WHERE id = #{id};
+        </update>
 </mapper>

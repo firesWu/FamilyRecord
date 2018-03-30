@@ -31,4 +31,10 @@ public class AlbumAction extends BaseAction {
         return JsonUtils.genUpdateDataReturnJsonStr(true,"查询成功",albumService.selectAlbumInfo(album));
     }
 
+    @RequestMapping("deleteAlbum")
+    public String deleteAlbum(String id){
+        boolean result = albumService.deleteAlbum(id);
+        return result?JsonUtils.genUpdateDataReturnJsonStr(true,"删除成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"删除失败");
+    }
+
 }

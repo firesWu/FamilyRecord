@@ -78,7 +78,7 @@ var createArticle = function(formId,articleId){
 
         if(result.success){
             selectArticle(1);
-            openForm('article_show_list','model_article');
+            openForm('article_list_show','model_article');
             console.log(result.msg);
         }else{
             console.log(result.msg);

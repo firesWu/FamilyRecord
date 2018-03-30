@@ -21,4 +21,9 @@ public class CommonFileService extends BaseService {
         return i>0;
     }
 
+    public boolean deleteCommonFile(String id){
+        int i = sqlSessionTemplate.update("commonFile.deleteCommonFile",id);
+        return i>0;
+    }
+
 }

@@ -5,8 +5,14 @@
 <mapper namespace="article">
 
         <insert id="insert" parameterType="Article">
-                insert article(rId,title,content,creator) VALUES (#{rId},#{title},#{content},#{creator});
+                INSERT article(rId,title,content,creator) VALUES (#{rId},#{title},#{content},#{creator});
         </insert>
+
+        <update id="update" parameterType="Article">
+
+            UPDATE article SET title = #{title},content = #{content} WHERE id = #{id};
+
+        </update>
 
         <select id="select" parameterType="Article" resultType="Article">
                 SELECT
@@ -26,4 +32,7 @@
                 </trim>
         </select>
 
+        <update id="deleteArticle" parameterType="Integer">
+            UPDATE article SET isDelete = 0 WHERE id = #{id};
+        </update>
 </mapper>

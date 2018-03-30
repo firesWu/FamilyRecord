@@ -25,8 +25,12 @@ public class ArticleAction extends BaseAction {
     @RequestMapping("createArticle")
     public String createArticle(Article article){
 
-        boolean result = articleService.createArticle(article);
-
+        boolean result;
+        if(article.getId().equals("")){
+            result = articleService.createArticle(article);
+        }else{
+            result = articleService.updateArticle(article);
+        }
         return result? JsonUtils.genUpdateDataReturnJsonStr(true,"发表成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"发表失败");
     }
 
@@ -38,6 +42,12 @@ public class ArticleAction extends BaseAction {
         PageInfo pageInfo = new PageInfo(list);
 
         return JsonUtils.genUpdateDataReturnJsonStr(true,"查询成功",pageInfo);
+    }
+
+    @RequestMapping("deleteArticle")
+    public String deleteArticle(String id){
+        boolean result = articleService.deleteArticle(id);
+        return result?JsonUtils.genUpdateDataReturnJsonStr(true,"删除成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"删除失败");
     }
 
     //查询评论

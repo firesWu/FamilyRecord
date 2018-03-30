@@ -34,4 +34,7 @@
             </foreach>
         </insert>
 
+        <update id="deleteCommonFile" parameterType="Integer">
+            UPDATE common_file SET isDelete = 0 WHERE id = #{id};
+        </update>
 </mapper>

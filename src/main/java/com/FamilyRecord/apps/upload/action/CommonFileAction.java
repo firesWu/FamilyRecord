@@ -23,4 +23,10 @@ public class CommonFileAction {
         return JsonUtils.genUpdateDataReturnJsonStr(true,"查询成功",commonFileService.selectPhotoOrVideo(commonFile));
     }
 
+    @RequestMapping("deleteCommonFile")
+    public String deleteCommonFile(String id){
+        boolean result = commonFileService.deleteCommonFile(id);
+        return result?JsonUtils.genUpdateDataReturnJsonStr(true,"删除成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"删除失败");
+    }
+
 }
