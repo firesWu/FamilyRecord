@@ -40,24 +40,24 @@ public class LoginAction extends BaseAction{
         }
 
         String random = RandomGuid.getGuid();
-        List<Map> userList = null;
+        List<UserInfo> userList = null;
         try {
             userList = userService.login(user);
             if (userList.size()>0){
-                request.getSession().setAttribute(random,userList.get(0).get("account"));
+                request.getSession().setAttribute(random,userList.get(0).getAccount());
                 CookieUtils.setCookie(response, "roleCookie", random);
             }else{
                 return JsonUtils.genUpdateDataReturnJsonStr(false,"登录失败");
             }
 
             if(userList.size()>0){
-                userList.get(0).remove("password");
+                userList.get(0).setPassword("");
             }
         } catch (Exception e) {
             e.printStackTrace();
             return JsonUtils.genUpdateDataReturnJsonStr(false,"登录失败");
         }
-        return JsonUtils.genUpdateDataReturnJsonStr(true,"",user);
+        return JsonUtils.genUpdateDataReturnJsonStr(true,"",userList);
 
     }
 

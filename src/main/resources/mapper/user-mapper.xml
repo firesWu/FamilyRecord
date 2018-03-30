@@ -26,14 +26,21 @@
             </trim>
         </select>
 
-        <select id="login" parameterType="User" resultType="map">
-                select
-                  account,
-                  password,
-                  nickName,
-                  birthday
-                From user
-                WHERE account = #{account} and password = #{password};
+        <select id="login" parameterType="User" resultType="UserInfo">
+                SELECT
+                `user`.account,
+                `user`.nickName,
+                `user`.birthday,
+                `user`.headImageUrl,
+                `user`.createTime,
+                family_group.`name` as groupName,
+                family_group.creator,
+                family_group.id as groupId
+                FROM
+                `user`
+                LEFT JOIN family_user on `user`.account = family_user.userId
+                LEFT JOIN family_group on family_user.familyId = family_group.id
+                WHERE `user`.account = #{account} and `user`.password = #{password};
         </select>
 
         <select id="verLogin" parameterType="User" resultType="UserInfo">
