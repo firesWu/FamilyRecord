@@ -46,11 +46,6 @@ public class FileUpload extends BaseAction {
 
     @RequestMapping("/upload")
     public String upload(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-                request.getSession().getServletContext());
-        multipartResolver.setMaxUploadSize(5242880000L);
-        multipartResolver.setMaxUploadSizePerFile(5242880000L);
-        multipartResolver.setResolveLazily(true);
 
         // 判断 request 是否有文件上传,即多部分请求
         response.setCharacterEncoding("GBK");
@@ -79,6 +74,7 @@ public class FileUpload extends BaseAction {
                         if (!myFileName.trim().equals("")) {
                             //判断是否为可执行文件
                             if (!(myFileName.endsWith(".exe") || myFileName.endsWith(".bat"))){
+                                String fileSuffix = myFileName.substring(myFileName.lastIndexOf('.'));
                                 String fileName = file.getOriginalFilename();
                                 // 定义上传路径
                                 String path =  Constants.UPLOAD_FILEPATH ;
@@ -88,7 +84,7 @@ public class FileUpload extends BaseAction {
                                     logger.error("上传文件异常", e1);
                                     return scriptWrap(JsonUtils.genUpdateDataReturnJsonStr(false, "1", ""), callback);//对应服务器异常错误
                                 }
-                                String realFileName = RandomGuid.getGuid();
+                                String realFileName = RandomGuid.getGuid() + fileSuffix;
                                 File localFile = new File(realPath+path, realFileName);
 
                                 try {
@@ -97,7 +93,7 @@ public class FileUpload extends BaseAction {
                                     cf.setrId(rid);
                                     cf.setType(type);
                                     cf.setFileName(fileName);
-                                    cf.setFilePath("/" + path + realFileName  + myFileName);
+                                    cf.setFilePath("/" + path + realFileName);
                                     cf.setCreator(creator);
                                     arrFileNames.add(cf);
                                 } catch (IllegalStateException | IOException e) {
@@ -155,7 +151,7 @@ public class FileUpload extends BaseAction {
             boolean result = userService.update(user);
 
             if(result){
-                return JsonUtils.genUpdateDataReturnJsonStr(true,"上传成功");
+                return JsonUtils.genUpdateDataReturnJsonStr(true,"上传成功",user);
             }else{
                 return JsonUtils.genUpdateDataReturnJsonStr(false,"上传失败");
             }
@@ -168,11 +164,6 @@ public class FileUpload extends BaseAction {
 
     @RequestMapping("/uploadForAndroid")
     public String uploadForAndroid(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
-        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-                request.getSession().getServletContext());
-        multipartResolver.setMaxUploadSize(5242880000L);
-        multipartResolver.setMaxUploadSizePerFile(5242880000L);
-        multipartResolver.setResolveLazily(true);
 
         // 判断 request 是否有文件上传,即多部分请求
         response.setCharacterEncoding("GBK");
@@ -200,6 +191,7 @@ public class FileUpload extends BaseAction {
                         if (!myFileName.trim().equals("")) {
                             //判断是否为可执行文件
                             if (!(myFileName.endsWith(".exe") || myFileName.endsWith(".bat"))){
+                                String fileSuffix = myFileName.substring(myFileName.lastIndexOf('.'));
                                 String fileName = file.getOriginalFilename();
                                 // 定义上传路径
                                 String path =  Constants.UPLOAD_FILEPATH ;
@@ -209,7 +201,7 @@ public class FileUpload extends BaseAction {
                                     logger.error("上传文件异常", e1);
                                     return JsonUtils.genUpdateDataReturnJsonStr(false, "1", "");//对应服务器异常错误
                                 }
-                                String realFileName = RandomGuid.getGuid();
+                                String realFileName = RandomGuid.getGuid() + fileSuffix;
                                 File localFile = new File(realPath+path, realFileName);
 
                                 try {
@@ -218,7 +210,7 @@ public class FileUpload extends BaseAction {
                                     cf.setrId(rid);
                                     cf.setType(type);
                                     cf.setFileName(fileName);
-                                    cf.setFilePath("/" + path + realFileName + myFileName);
+                                    cf.setFilePath(path + realFileName);
                                     cf.setCreator(creator);
                                     arrFileNames.add(cf);
                                 } catch (IllegalStateException | IOException e) {
