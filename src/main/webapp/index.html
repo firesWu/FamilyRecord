@@ -57,7 +57,7 @@
 					  </ul>
 					   <ul class="nav navbar-nav navbar-right">
 						  <li class="dropdown">
-							  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img src="images/headImage/headImage.jpg" style="width:20px;height:20px;" alt=""/>Batman</a>
+							  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="head_image_show" src="images/headImage/headImage.jpg" style="width:20px;height:20px;" alt=""/>Batman</a>
 							  <ul class="dropdown-menu">
 								<li><a href="#" onclick="openSettingPart()">个人设置</a></li>
 								<li><a href="#">注销</a></li>
@@ -311,8 +311,8 @@
 			<div class="col-xs-2">
 				<ul class="nav" >
 					<li><a href="#" onclick="openForm('person_setting','model_user_setting')">个人设置</a></li>
-					<li><a href="#" onclick="openForm('member_manager','model_user_setting')">成员管理</a></li>
-					<li><a href="#" onclick="openForm('message_form','model_user_setting')"> 消息中心</a></li>
+					<li><a href="#" onclick="showMemberPage()">成员管理</a></li>
+					<li><a href="#" onclick="openMessageList()"> 消息中心</a></li>
 				</ul>
 			</div>
 			<div id="person_setting" name="model_user_setting">
@@ -471,7 +471,9 @@
 
 			</div>
 
-			<div id="message_form" name="model_user_setting" hidden></div>
+			<div id="message_form" name="model_user_setting" hidden>
+				<ul id="message_list"></ul>
+			</div>
 		</div>
 		<!-- 用户管理页面 end -->
 	</div>

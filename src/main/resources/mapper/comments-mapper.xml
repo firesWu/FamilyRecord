@@ -13,20 +13,55 @@
               );
        </insert>
 
-       <select id="select" parameterType="Comments" resultType="Comments">
+       <select id="select" parameterType="Comments" resultType="CommentsInfo">
               SELECT
                 comments.id,
                 comments.articleId,
                 comments.parentId,
                 comments.replyId,
+                u1.nickName as parentNickName,
+                u2.nickName as replyNickName,
                 comments.`comment`,
                 comments.floor,
                 comments.createTime
               FROM
                 comments
+              LEFT JOIN user u1 on u1.account = `comments`.parentId
+              LEFT JOIN user u2 on u2.account = `comments`.replyId
               WHERE
                 comments.isDelete = 0 and comments.articleId = #{articleId}
               ORDER by floor,createTime
 
        </select>
+
+
+      <select id="getUnreadMessage" parameterType="String" resultType="Map">
+          SELECT
+            comments.id,
+            comments.articleId,
+            comments.parentId,
+            comments.replyId,
+            u1.nickName as parentNickName,
+            u2.nickName as replyNickName,
+            a1.title as articleTitle,
+            comments.`comment`,
+            comments.floor,
+            comments.createTime
+          FROM
+            comments
+          LEFT JOIN user u1 on u1.account = `comments`.parentId
+          LEFT JOIN user u2 on u2.account = `comments`.replyId
+          LEFT JOIN article a1 on a1.id = `comments`.articleId
+          WHERE
+            comments.isDelete = 0 and comments.isRead = 0 and comments.parentId = #{account}
+          ORDER by createTime
+      </select>
+
+      <update id="setUnreadToRead" parameterType="List">
+          UPDATE comments SET isRead = 1 WHERE id in (
+            <foreach collection="list" item="item" separator=",">
+                #{item.id}
+            </foreach>
+          )
+      </update>
 </mapper>

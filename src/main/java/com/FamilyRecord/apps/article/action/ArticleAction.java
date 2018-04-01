@@ -4,6 +4,7 @@ import com.FamilyRecord.abstractApps.BaseAction;
 import com.FamilyRecord.apps.article.entity.Article;
 import com.FamilyRecord.apps.article.entity.Comments;
 import com.FamilyRecord.apps.article.service.ArticleService;
+import com.FamilyRecord.dto.CommentsInfo;
 import com.FamilyRecord.untils.JsonUtils;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
@@ -11,6 +12,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Created by yuan on 2018/3/29.
@@ -54,7 +57,7 @@ public class ArticleAction extends BaseAction {
     @RequestMapping("selectComments")
     public String selectComments(Comments comments, int pageNum, int pageSize){
         RowBounds rowBounds = new RowBounds(pageNum,pageSize);
-        Page<Comments> list =  articleService.selectComments(comments, rowBounds);
+        Page<CommentsInfo> list =  articleService.selectComments(comments, rowBounds);
         PageInfo pageInfo = new PageInfo(list);
         return JsonUtils.genUpdateDataReturnJsonStr(true,"查询成功",pageInfo);
     }
@@ -66,4 +69,15 @@ public class ArticleAction extends BaseAction {
         return result?JsonUtils.genUpdateDataReturnJsonStr(true,"回复成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"回复失败");
     }
 
+
+    //获取未读的消息
+    @RequestMapping("getUnreadMessage")
+    public String getUnreadMessage(String account){
+        boolean reuslt;
+        List messageList = articleService.getUnreadMessage(account);
+        if(messageList.size()!=0){
+            reuslt = articleService.setUnreadToRead(messageList);
+        }
+        return JsonUtils.genUpdateDataReturnJsonStr(true,"查询成功",messageList);
+    }
 }

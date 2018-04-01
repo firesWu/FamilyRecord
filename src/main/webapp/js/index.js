@@ -169,11 +169,11 @@ var selectComments = function(pageNum){
             var str = "";
             for(var i = 0;i<data.length;i++){
                 var floor = data[i].floor;
-                str += "<tr> <td>" + data[i].replyId +"</td> <td> <div>" + data[i].comment +"</div> <ul class='center-block'>";
+                str += "<tr> <td>" + data[i].replyNickName +"</td> <td> <div>" + data[i].comment +"</div> <ul class='center-block'>";
                 while(1){
                     if(i+1>= data.length || data[i+1].floor != floor) break;
                     i++;
-                    str += "<li>"+ data[i].replyId + "回复" + data[i].parentId + "：" + data[i].comment +" <a href='##' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</a> </li>";
+                    str += "<li>"+ data[i].replyNickName + "回复" + data[i].parentNickName + "：" + data[i].comment +" <a href='##' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</a> </li>";
 
                 }
                 str += "<button class='pull-right' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</button>"
@@ -432,8 +432,9 @@ function imagesAjax(src) {
         type: "POST",
         dataType: 'json',
         success: function(re) {
-            if(re.status == '1') {
-                $('.user_pic img').attr('src',src );
+            if(re.success) {
+                //$('.user_pic img').attr('src',src );
+                $('#head_image_show').attr('src',src );
             }
         }
     });
@@ -446,6 +447,10 @@ var insertFamilyUserUrl = "/" + projectName + "/familyGroup/insertFamilyUser.do"
 var selectFamilyUserUrl = "/" + projectName + "/familyGroup/selectFamilyUserByGroupId.do";
 var deleteFamilyUserUrl = "/" + projectName + "/familyGroup/deleteFamilyUserUrl.do";
 
+var showMemberPage = function(){
+    getMemeberList();
+    openForm('member_manager','model_user_setting')
+};
 
 var addMember = function(formId){
 
@@ -505,5 +510,34 @@ var deleteFamilyUser = function(params){
     });
 
 };
+
+/********************************************  消息管理  ********************************************/
+
+var getMessageListUrl = "/" + projectName + "/article/getUnreadMessage.do";
+
+var openMessageList = function(){
+    getMessageList();
+    openForm('message_form','model_user_setting')
+};
+
+var getMessageList = function(){
+
+     var params = {account:userInfo.account};
+
+    ajaxFunction(getMessageListUrl,params,function(result){
+        if(result.success){
+
+            var data = result.data;
+            var str = "";
+            for(var i = 0;i<data.length;i++){
+                str += "<li>" + data[i].replyNickName +"在《" + data[i].articleTitle + "》中回复您：" + data[i].comment +"</li>";
+            }
+
+            $("#message_list").html(str);
+        }
+    });
+
+};
+
 
 /********************************************  用户管理模块 end  ********************************************/

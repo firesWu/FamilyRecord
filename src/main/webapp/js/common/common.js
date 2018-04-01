@@ -101,6 +101,9 @@ var verLogin = function(){
     ajaxFunction(verLoginUrl,{}, function (result) {
         if(result.success){
             userInfo = result.data[0];
+
+            if(isNotNull(userInfo.headImageUrl)) $("#head_image_show").attr("src","/" + projectName + userInfo.headImageUrl);
+
             console.log(userInfo);
         }else{
             window.location = "/" + projectName + "/login.html";

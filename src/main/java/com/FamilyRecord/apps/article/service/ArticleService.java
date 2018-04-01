@@ -7,6 +7,8 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by yuan on 2018/3/29.
  */
@@ -42,5 +44,12 @@ public class ArticleService extends BaseService {
         return i>0;
     }
 
+    public List getUnreadMessage(String account){
+        return sqlSessionTemplate.selectList("comments.getUnreadMessage",account);
+    }
 
+    public boolean setUnreadToRead(List comments){
+        int i = sqlSessionTemplate.update("comments.setUnreadToRead",comments);
+        return i>0;
+    }
 }
