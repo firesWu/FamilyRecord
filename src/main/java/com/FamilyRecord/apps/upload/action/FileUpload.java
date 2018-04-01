@@ -97,7 +97,7 @@ public class FileUpload extends BaseAction {
                                     cf.setrId(rid);
                                     cf.setType(type);
                                     cf.setFileName(fileName);
-                                    cf.setFilePath("/" + path + realFileName);
+                                    cf.setFilePath("/" + path + realFileName  + myFileName);
                                     cf.setCreator(creator);
                                     arrFileNames.add(cf);
                                 } catch (IllegalStateException | IOException e) {
@@ -164,5 +164,86 @@ public class FileUpload extends BaseAction {
             e.printStackTrace();
             return JsonUtils.genUpdateDataReturnJsonStr(false,"上传失败");
         }
+    }
+
+    @RequestMapping("/uploadForAndroid")
+    public String uploadForAndroid(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+        CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+                request.getSession().getServletContext());
+        multipartResolver.setMaxUploadSize(5242880000L);
+        multipartResolver.setMaxUploadSizePerFile(5242880000L);
+        multipartResolver.setResolveLazily(true);
+
+        // 判断 request 是否有文件上传,即多部分请求
+        response.setCharacterEncoding("GBK");
+        List arrFileNames = new ArrayList();
+        int rid = Integer.parseInt(request.getParameter("rId").trim());
+        int type = Integer.parseInt(request.getParameter("type").trim());
+        String creator = request.getParameter("creator").trim();
+
+        String realPath = request.getServletContext().getRealPath("/");
+
+        if (multipartResolver.isMultipart(request)) {
+            // 生成关联ID
+
+            MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+
+            Iterator<String> iter = multiRequest.getFileNames();
+            while (iter.hasNext()) {
+                List<MultipartFile> files = multiRequest.getFiles(iter.next());
+
+                for(MultipartFile file : files){
+                    if (file != null) {
+                        // 取得当前上传文件的文件名称
+                        String myFileName = file.getOriginalFilename();
+                        // 如果名称不为“”,说明该文件存在，否则说明该文件不存在
+                        if (!myFileName.trim().equals("")) {
+                            //判断是否为可执行文件
+                            if (!(myFileName.endsWith(".exe") || myFileName.endsWith(".bat"))){
+                                String fileName = file.getOriginalFilename();
+                                // 定义上传路径
+                                String path =  Constants.UPLOAD_FILEPATH ;
+                                try {
+                                    FileUtils.forceMkdir(new File(realPath+path));
+                                } catch (IOException e1) {
+                                    logger.error("上传文件异常", e1);
+                                    return JsonUtils.genUpdateDataReturnJsonStr(false, "1", "");//对应服务器异常错误
+                                }
+                                String realFileName = RandomGuid.getGuid();
+                                File localFile = new File(realPath+path, realFileName);
+
+                                try {
+                                    file.transferTo(localFile);
+                                    CommonFile cf = new CommonFile();
+                                    cf.setrId(rid);
+                                    cf.setType(type);
+                                    cf.setFileName(fileName);
+                                    cf.setFilePath("/" + path + realFileName + myFileName);
+                                    cf.setCreator(creator);
+                                    arrFileNames.add(cf);
+                                } catch (IllegalStateException | IOException e) {
+                                    logger.error("上传文件异常", e);
+                                    return JsonUtils.genUpdateDataReturnJsonStr(false, "1", "");
+                                }
+                            }else{return JsonUtils.genUpdateDataReturnJsonStr(false, "2");//1. 对应前台错误数组的可执行文件不可上传错误
+                            }
+                        }
+                    }
+                }
+
+            }
+            //如果有上传文件
+            if(arrFileNames.size()>0){
+                boolean b = commonFileService.addFiles(arrFileNames);
+                // 添加失败直接返回
+                if (!b) {
+                    return JsonUtils.genUpdateDataReturnJsonStr(false, "false", "");
+                }
+            }else{
+                return JsonUtils.genUpdateDataReturnJsonStr(false, "3");//1. 对应前台错误数组的没有文件错误
+            }
+
+        }
+        return JsonUtils.genUpdateDataReturnJsonStr(true, "Upload complete", arrFileNames);
     }
 }
