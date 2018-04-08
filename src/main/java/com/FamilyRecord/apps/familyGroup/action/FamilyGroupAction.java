@@ -79,4 +79,10 @@ public class FamilyGroupAction extends BaseAction{
         return JsonUtils.genUpdateDataReturnJsonStr(true,"查询成功",familyUserService.select(familyUser));
     }
 
+    @RequestMapping("deleteFamilyUserUrl")
+    public String deleteFamilyUser(FamilyUser familyUser){
+        boolean result = familyUserService.delete(familyUser);
+        return result?JsonUtils.genUpdateDataReturnJsonStr(true,"删除成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"删除成功");
+    }
+
 }

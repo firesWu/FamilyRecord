@@ -95,6 +95,19 @@ function formToJsonstr(fromId) {
 
 var userInfo = {account:123456,groupId:1,headImageUrl:"/images/headImage.jpg"};
 var verLoginUrl = "/" + projectName + "/login/verLogin.do";
+var logOutUrl = "/" + projectName + "/login/delCookie.do";
+//注销
+var loginOut = function(){
+
+    ajaxFunction(logOutUrl,{roleCookie:"roleCookie"},function(result){
+
+        if(result.success){
+            window.location = "/" + projectName + "/login.html";
+        }
+
+    })
+
+};
 //判断是否登录状态
 var verLogin = function(){
 
@@ -190,4 +203,10 @@ function fileUpload($form,callback,params,action) {
     myform.get(0).submit();
 
     return 1;
-}
+};
+
+function layerMsg(msg){
+
+    layer.msg(msg);
+
+};

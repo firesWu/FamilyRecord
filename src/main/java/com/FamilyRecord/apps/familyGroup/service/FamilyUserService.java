@@ -18,7 +18,7 @@ public class FamilyUserService extends BaseService{
     }
 
     public boolean delete(FamilyUser familyUser){
-        int i = sqlSessionTemplate.delete("familyUser.insert", familyUser);
+        int i = sqlSessionTemplate.delete("familyUser.delete", familyUser);
         return i>0;
     }
 

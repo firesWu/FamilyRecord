@@ -34,7 +34,43 @@
             </foreach>
         </insert>
 
-        <update id="deleteCommonFile" parameterType="Integer">
-            UPDATE common_file SET isDelete = 0 WHERE id = #{id};
+        <update id="deleteCommonFile" parameterType="String">
+            UPDATE common_file SET isDelete = 1 WHERE id = #{id};
         </update>
+
+        <update id="deletePhotoByAlbumId" parameterType="String">
+            UPDATE common_file SET isDelete = 1 WHERE rId = #{rId} and type = 1;
+        </update>
+
+        <select id="selectTopPhoto" parameterType="HomeRequest" resultType="CommonFile">
+            SELECT
+                cf.id,
+                cf.rId,
+                cf.filePath,
+                cf.fileName,
+                cf.type,
+                cf.createTime,
+                cf.creator
+            FROM
+              common_file cf
+            LEFT JOIN album_name an on cf.rId = an.id
+            WHERE cf.type = 1 and cf.isDelete = 0 and an.groupId = #{groupId}
+            ORDER BY createTime LIMIT  ${topNum}
+        </select>
+
+        <select id="selectTopVideo" parameterType="HomeRequest" resultType="CommonFile">
+            SELECT
+                cf.id,
+                cf.rId,
+                cf.filePath,
+                cf.fileName,
+                cf.type,
+                cf.createTime,
+                cf.creator
+            FROM
+                common_file cf
+            WHERE cf.type = 2 and cf.isDelete = 0  and cf.rId = #{groupId}
+            ORDER BY createTime LIMIT  ${topNum}
+        </select>
+
 </mapper>

@@ -1,6 +1,7 @@
 package com.FamilyRecord.apps.user.service;
 
 import com.FamilyRecord.abstractApps.BaseService;
+import com.FamilyRecord.apps.system.entity.HomeRequest;
 import com.FamilyRecord.apps.user.entity.User;
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class UserService extends BaseService {
     public boolean update(User user){
         int i = sqlSessionTemplate.update("user.updateByAccount",user);
         return i>0;
+    }
+
+    public List selectBirthdayReminding(HomeRequest homeRequest){
+        return sqlSessionTemplate.selectList("user.selectBirthdayReminding",homeRequest);
     }
 
 }

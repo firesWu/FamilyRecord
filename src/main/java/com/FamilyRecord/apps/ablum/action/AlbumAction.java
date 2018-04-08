@@ -3,6 +3,7 @@ package com.FamilyRecord.apps.ablum.action;
 import com.FamilyRecord.abstractApps.BaseAction;
 import com.FamilyRecord.apps.ablum.entity.Album;
 import com.FamilyRecord.apps.ablum.service.AlbumService;
+import com.FamilyRecord.apps.upload.service.CommonFileService;
 import com.FamilyRecord.untils.JsonUtils;
 import jdk.nashorn.internal.runtime.JSONFunctions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class AlbumAction extends BaseAction {
 
     @Autowired
-    AlbumService albumService;
+    private AlbumService albumService;
+
+    @Autowired
+    private CommonFileService commonFileService;
 
     @RequestMapping("insert")
     public String insert(Album album){
@@ -34,6 +38,9 @@ public class AlbumAction extends BaseAction {
     @RequestMapping("deleteAlbum")
     public String deleteAlbum(String id){
         boolean result = albumService.deleteAlbum(id);
+        if(result){
+            commonFileService.deletePhotoByAlbumId(id);
+        }
         return result?JsonUtils.genUpdateDataReturnJsonStr(true,"删除成功"):JsonUtils.genUpdateDataReturnJsonStr(false,"删除失败");
     }
 

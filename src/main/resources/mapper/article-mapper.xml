@@ -32,7 +32,21 @@
                 </trim>
         </select>
 
-        <update id="deleteArticle" parameterType="Integer">
-            UPDATE article SET isDelete = 0 WHERE id = #{id};
+        <update id="deleteArticle" parameterType="String">
+            UPDATE article SET isDelete = 1 WHERE id = #{id};
         </update>
+
+        <select id="selectTopArticle"  parameterType="HomeRequest" resultType="Article">
+            SELECT
+              article.id,
+              article.rId,
+              article.title,
+              article.content,
+              article.creator,
+              article.createTime
+            FROM
+              article
+            WHERE isDelete = 0 and rId = #{groupId}
+            ORDER BY createTime LIMIT ${topNum}
+        </select>
 </mapper>

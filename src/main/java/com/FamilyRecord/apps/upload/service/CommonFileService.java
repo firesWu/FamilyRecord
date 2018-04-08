@@ -1,6 +1,7 @@
 package com.FamilyRecord.apps.upload.service;
 
 import com.FamilyRecord.abstractApps.BaseService;
+import com.FamilyRecord.apps.system.entity.HomeRequest;
 import com.FamilyRecord.apps.upload.entity.CommonFile;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,19 @@ public class CommonFileService extends BaseService {
     public boolean deleteCommonFile(String id){
         int i = sqlSessionTemplate.update("commonFile.deleteCommonFile",id);
         return i>0;
+    }
+
+    public boolean deletePhotoByAlbumId(String rId){
+        int i = sqlSessionTemplate.update("commonFile.deletePhotoByAlbumId",rId);
+        return i>0;
+    }
+
+    public List selectTopPhotho(HomeRequest homeRequest){
+        return sqlSessionTemplate.selectList("commonFile.selectTopPhoto",homeRequest);
+    }
+
+    public List selectTopVideo(HomeRequest homeRequest){
+        return sqlSessionTemplate.selectList("commonFile.selectTopVideo",homeRequest);
     }
 
 }

@@ -53,12 +53,30 @@ $(function(){
     });
 
 });
+
+/********************************************  homePage begin ********************************************/
+var getHomePageInfoUrl = "/" + projectName + "/homePage/getHomePageInfo.do";
+
+var getHomePageInfo = function () {
+
+    var params = {topNum:10, groupId:userInfo.groupId};
+
+    ajaxFunction(getHomePageInfoUrl,params,function(result){
+        if(result.success){
+            console.log("查询成功");
+        }
+    })
+
+};
+
+
 /********************************************  主题帖 begin ********************************************/
 
 var createArticleUrl = "/" + projectName + "/article/createArticle.do";
 var selectArticleUrl = "/" + projectName + "/article/selectArticle.do";
 var replyArticleUrl = "/" + projectName + "/article/replyArticle.do";
 var selectCommentUrl = "/" + projectName + "/article/selectComments.do";
+var deleteArticleUrl = "/" + projectName + "/article/deleteArticle.do";
 
 var openArticlePart = function(){
 
@@ -104,6 +122,22 @@ var selectArticle = function(pageNum){
             }
             $("#article_list").html(str);
         }
+    });
+
+};
+
+var deleteArticle = function(id){
+
+    var params = {id:id};
+
+    ajaxFunction(deleteArticleUrl,params,function(result){
+
+        if(result.success){
+            console.log("删除成功");
+        }else{
+            
+        }
+
     });
 
 };
@@ -195,6 +229,8 @@ var insertAlbumUrl = "/" + projectName + "/album/insert.do";
 var selectAlbumInfoUrl = "/" + projectName + "/album/selectAlbumInfo.do";
 var selectPhotoOrVideoUrl = "/" + projectName + "/commonFile/selectPhotoOrVideo.do";
 var uploadPhotoOrVideoUrl = "/" + projectName + "/fileUpload/upload.do";
+var deleteAlbumUrl = "/" + projectName + "/album/deleteAlbum.do";
+var deletePhotoOrVideoUrl = "/" + projectName + "/commonFile/deleteCommonFile.do";
 var albumInfo = {id:1};
 
 //相册模块
@@ -285,6 +321,21 @@ var openAlbum = function(album){
 
 };
 
+var deleteAlbum = function(id){
+
+    var params = {id:id};
+
+    ajaxFunction(deleteAlbumUrl,params,function(result){
+        if(result.success){
+            console.log("删除成功")
+        }else{
+
+        }
+    })
+
+};
+
+
 var photoPreview = function(path){
     $("#photo_show").modal("show");
     $("#photo_preview").attr("src","/"+projectName + "/" + path);
@@ -338,7 +389,7 @@ var selectVideoList = function(){
             }
 
             $("#video_list").html(str);
-            initFileInput('upload_video_file',"#",['avi','wmv','mpeg','mp4','mov','mkv','flv','f4v','m4v','rmvb','rm','3gp','dat','ts','mts','vob']);
+            initFileInput('upload_video_file',"#",[,'mp4']);
         }else{
             console.log(result.msg);
         }
@@ -378,6 +429,20 @@ var uploadVideoCallback = function(result){
 
 };
 
+
+var deletePhotoOrVideo = function(id){
+
+    var params = {id:id};
+
+    ajaxFunction(deletePhotoOrVideoUrl,params,function(result){
+        if(result.success){
+            console.log("删除成功");
+        }else{
+
+        }
+    });
+
+};
 
 /********************************************  相册模块 end ********************************************/
 
@@ -485,7 +550,7 @@ var getMemeberList = function(){
             var data = result.data;
             var str = "";
             for(var i = 0 ; i < data.length;i++){
-                str += "<tr><td>"+data[i].userId+"</td><td>" + data[i].nickName + "</td><td>"+ ((data[i].userId==userInfo.account)?"":"<a href='#' onclick='deleteFamilyUser("+JSON.stringify(data[i])+")' >删除</a>") +"</td></tr>";
+                str += "<tr><td>"+data[i].userId+"</td><td>" + data[i].nickName + "</td><td>"+ ((userInfo.account == userInfo.creator && data[i].userId!=userInfo.account )?"<a href='#' onclick='deleteFamilyUser("+JSON.stringify(data[i])+")' >删除</a>":"") +"</td></tr>";
             }
             $("#member_list tbody").html(str);
 

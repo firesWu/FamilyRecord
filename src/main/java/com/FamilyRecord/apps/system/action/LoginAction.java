@@ -106,7 +106,8 @@ public class LoginAction extends BaseAction{
     @RequestMapping("/delCookie.do")
     public String delCookie(@RequestParam(value = "roleCookie")String roleCookie,HttpServletResponse response,
                             HttpServletRequest request){
-        CookieUtils.getCookieValue(request,roleCookie);
+        String random = CookieUtils.getCookieValue(request,roleCookie);
+        request.getSession().removeAttribute(random);
         return JsonUtils.genUpdateDataReturnJsonStr(true,"");
     }
 

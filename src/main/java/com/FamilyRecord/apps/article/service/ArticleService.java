@@ -3,6 +3,7 @@ package com.FamilyRecord.apps.article.service;
 import com.FamilyRecord.abstractApps.BaseService;
 import com.FamilyRecord.apps.article.entity.Article;
 import com.FamilyRecord.apps.article.entity.Comments;
+import com.FamilyRecord.apps.system.entity.HomeRequest;
 import com.github.pagehelper.Page;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,7 @@ public class ArticleService extends BaseService {
     public boolean deleteArticle(String id){
         int i = sqlSessionTemplate.update("article.deleteArticle",id);
         return i>0;
-    };
+    }
 
     public Page selectComments(Comments comments, RowBounds rowBounds){
         return (Page)sqlSessionTemplate.selectList("comments.select",comments,rowBounds);
@@ -52,4 +53,9 @@ public class ArticleService extends BaseService {
         int i = sqlSessionTemplate.update("comments.setUnreadToRead",comments);
         return i>0;
     }
+
+    public List selectTopArticle(HomeRequest homeRequest){
+        return sqlSessionTemplate.selectList("article.selectTopArticle",homeRequest);
+    }
+
 }

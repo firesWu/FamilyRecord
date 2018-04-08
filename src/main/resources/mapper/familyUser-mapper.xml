@@ -19,7 +19,7 @@
         </select>
 
         <delete id="delete" parameterType="FamilyUser">
-                delete family_user WHERE familyId = #{familyId} and userId = #{userId};
+                DELETE FROM family_user WHERE familyId = #{familyId} and userId = #{userId};
         </delete>
 
         <select id="judge" parameterType="FamilyUser" resultType="FamilyUser">

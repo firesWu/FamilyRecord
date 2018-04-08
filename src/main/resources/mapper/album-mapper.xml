@@ -20,12 +20,13 @@
                      cf.filePath
               FROM
                     album_name an
-              LEFT JOIN common_file cf ON an.groupId = #{groupId} and an.id = cf.rId and cf.createTime = (SELECT max(createTime) FROM common_file cf2 WHERE rId = cf.rId and type = 1 and isDelete = 0)
+              LEFT JOIN common_file cf ON an.id = cf.rId and cf.id = (SELECT id FROM common_file cf2 WHERE rId = cf.rId and type = 1 and isDelete = 0 ORDER BY createTime DESC LIMIT 1)
+              WHERE an.groupId = #{groupId} and an.isDelete = 0
               ORDER BY an.createTime;
 
        </select>
 
-        <update id="deleteAlbum" parameterType="Integer">
-            UPDATE album_name SET isDelete = 0 WHERE id = #{id};
+        <update id="deleteAlbum" parameterType="String">
+            UPDATE album_name SET isDelete = 1 WHERE id = #{id};
         </update>
 </mapper>
