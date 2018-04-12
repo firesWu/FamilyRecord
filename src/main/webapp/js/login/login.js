@@ -13,7 +13,7 @@ var loginUser = function(formId){
     ajaxFunction(loginUrl,params,function(result){
 
         if(result.success){
-            window.location = "/" + projectName + "/index.html";
+            window.location = "/" + newProject + "/index.html";
         }else{
             alert(result.msg);
         }
@@ -33,7 +33,7 @@ var registerUser = function(formId){
     ajaxFunction(registerUrl,params,function(result){
 
         if(result.success){
-            window.location = "/" + projectName + "/index.html";
+            window.location = "/" + newProject + "/index.html";
         }else{
             alert(result.msg);
         }

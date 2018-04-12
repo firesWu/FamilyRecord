@@ -52,31 +52,20 @@ $(function(){
         sideBySide : true
     });
 
+    $('#reply_article0')
+        .focus(function () {
+            $(this).css('background', '#fff');
+        })
+        .blur(function () {
+            $(this).css('background', '#ccc');
+        })
 });
-
-/********************************************  homePage begin ********************************************/
-var getHomePageInfoUrl = "/" + projectName + "/homePage/getHomePageInfo.do";
-
-var getHomePageInfo = function () {
-
-    var params = {topNum:10, groupId:userInfo.groupId};
-
-    ajaxFunction(getHomePageInfoUrl,params,function(result){
-        if(result.success){
-            console.log("查询成功");
-        }
-    })
-
-};
-
-
 /********************************************  主题帖 begin ********************************************/
 
 var createArticleUrl = "/" + projectName + "/article/createArticle.do";
 var selectArticleUrl = "/" + projectName + "/article/selectArticle.do";
 var replyArticleUrl = "/" + projectName + "/article/replyArticle.do";
 var selectCommentUrl = "/" + projectName + "/article/selectComments.do";
-var deleteArticleUrl = "/" + projectName + "/article/deleteArticle.do";
 
 var openArticlePart = function(){
 
@@ -98,6 +87,9 @@ var createArticle = function(formId,articleId){
             selectArticle(1);
             openForm('article_list_show','model_article');
             console.log(result.msg);
+            $('.post-title').val('');
+            $('#article_editor').html('');
+
         }else{
             console.log(result.msg);
         }
@@ -118,26 +110,10 @@ var selectArticle = function(pageNum){
             var data = result.data.list;
             var str = "";
             for(var i = 0; i < data.length;i++){
-                str += "<li class='list-group-item' onclick=\'openArticle(" + JSON.stringify(data[i]) + ")\'>" + data[i].title + "</li>";
+                str += "<li class='list-group-item' onclick=\'openArticle(" + JSON.stringify(data[i]) + ")\'><span class='title'>" + data[i].title + "</span><span class='time'>" + data[i].createTime.slice(0, 10) + "</span></li>";
             }
             $("#article_list").html(str);
         }
-    });
-
-};
-
-var deleteArticle = function(id){
-
-    var params = {id:id};
-
-    ajaxFunction(deleteArticleUrl,params,function(result){
-
-        if(result.success){
-            console.log("删除成功");
-        }else{
-            
-        }
-
     });
 
 };
@@ -160,7 +136,13 @@ var replyReady = function(result,showReplyFormId){
 
     $("div[name = replyFormDiv]").hide();
     $("#"+showReplyFormId).show();
-
+    $('.secondary-reply')
+        .focus()
+        .blur(function () {
+            if ($(this).val().length === 0) {
+                $('.reply-input').hide();
+            }
+    });
 };
 
 var replyOtherUser = function(floor,replyContentId){
@@ -203,18 +185,17 @@ var selectComments = function(pageNum){
             var str = "";
             for(var i = 0;i<data.length;i++){
                 var floor = data[i].floor;
-                str += "<tr> <td>" + data[i].replyNickName +"</td> <td> <div>" + data[i].comment +"</div> <ul class='center-block'>";
+                str += "<p class='first-comment'><button class='pull-right' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</button><span  class='user-name'>" + data[i].replyNickName +"</span>：" + data[i].comment + "</p> <ul class='center-block'>";
                 while(1){
                     if(i+1>= data.length || data[i+1].floor != floor) break;
                     i++;
-                    str += "<li>"+ data[i].replyNickName + "回复" + data[i].parentNickName + "：" + data[i].comment +" <a href='##' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</a> </li>";
-
+                    str += "<li class='second-comment'><span class='user-name'>"+ data[i].replyNickName + "</span> 回复 <span class='user-name'>" + data[i].parentNickName + "</span>：" + data[i].comment +" <a href='##' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</a> </li>";
                 }
-                str += "<button class='pull-right' onclick='replyReady("+ JSON.stringify(data[i]) +",\"articleReplyForm"+ (data[i].floor) +"\")'>回复</button>"
-                        + "<div name='replyFormDiv'style='display:none;' id='articleReplyForm"+ (data[i].floor) +"'><input type='text' id='reply_article"+ data[i].floor +"' /><button onclick='replyOtherUser(\" "+ data[i].floor +" \",\"reply_article"+ data[i].floor +"\")'>回复</button></div></td></tr>";
+                str +="<div class='reply-input' name='replyFormDiv'style='display:none;' id='articleReplyForm"+ (data[i].floor) +"'><input class='secondary-reply' type='text' id='reply_article"+ data[i].floor +"' placeholder='回复 "+ data[i].replyNickName +": ' /><button class='btn-second-comment' onclick='replyOtherUser(\" "+ data[i].floor +" \",\"reply_article"+ data[i].floor +"\")'>回复</button></div></td></tr>";
             }
 
             $("#comment_list").html(str);
+            $('#reply_article0').val('');
         }
 
     })
@@ -229,8 +210,6 @@ var insertAlbumUrl = "/" + projectName + "/album/insert.do";
 var selectAlbumInfoUrl = "/" + projectName + "/album/selectAlbumInfo.do";
 var selectPhotoOrVideoUrl = "/" + projectName + "/commonFile/selectPhotoOrVideo.do";
 var uploadPhotoOrVideoUrl = "/" + projectName + "/fileUpload/upload.do";
-var deleteAlbumUrl = "/" + projectName + "/album/deleteAlbum.do";
-var deletePhotoOrVideoUrl = "/" + projectName + "/commonFile/deleteCommonFile.do";
 var albumInfo = {id:1};
 
 //相册模块
@@ -321,21 +300,6 @@ var openAlbum = function(album){
 
 };
 
-var deleteAlbum = function(id){
-
-    var params = {id:id};
-
-    ajaxFunction(deleteAlbumUrl,params,function(result){
-        if(result.success){
-            console.log("删除成功")
-        }else{
-
-        }
-    })
-
-};
-
-
 var photoPreview = function(path){
     $("#photo_show").modal("show");
     $("#photo_preview").attr("src","/"+projectName + "/" + path);
@@ -389,7 +353,7 @@ var selectVideoList = function(){
             }
 
             $("#video_list").html(str);
-            initFileInput('upload_video_file',"#",[,'mp4']);
+            initFileInput('upload_video_file',"#",['avi','wmv','mpeg','mp4','mov','mkv','flv','f4v','m4v','rmvb','rm','3gp','dat','ts','mts','vob']);
         }else{
             console.log(result.msg);
         }
@@ -429,20 +393,6 @@ var uploadVideoCallback = function(result){
 
 };
 
-
-var deletePhotoOrVideo = function(id){
-
-    var params = {id:id};
-
-    ajaxFunction(deletePhotoOrVideoUrl,params,function(result){
-        if(result.success){
-            console.log("删除成功");
-        }else{
-
-        }
-    });
-
-};
 
 /********************************************  相册模块 end ********************************************/
 
@@ -550,7 +500,7 @@ var getMemeberList = function(){
             var data = result.data;
             var str = "";
             for(var i = 0 ; i < data.length;i++){
-                str += "<tr><td>"+data[i].userId+"</td><td>" + data[i].nickName + "</td><td>"+ ((userInfo.account == userInfo.creator && data[i].userId!=userInfo.account )?"<a href='#' onclick='deleteFamilyUser("+JSON.stringify(data[i])+")' >删除</a>":"") +"</td></tr>";
+                str += "<tr><td>"+data[i].userId+"</td><td>" + data[i].nickName + "</td><td>"+ ((data[i].userId==userInfo.account)?"":"<a href='#' onclick='deleteFamilyUser("+JSON.stringify(data[i])+")' >删除</a>") +"</td></tr>";
             }
             $("#member_list tbody").html(str);
 

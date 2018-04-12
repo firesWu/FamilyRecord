@@ -1,0 +1,139 @@
+.photo-list {
+    width: 100%;
+    padding: 10px;
+    column-count: 5;
+    column-gap: 10px;
+    background: #fff;
+    border-radius: 3px;
+}
+
+.photo-list div {
+    width: 100%;
+    margin-bottom: 10px;
+    column-break-inside: avoid;
+    opacity: .85;
+    cursor: pointer;
+    transition: all .5s;
+}
+
+.photo-list div:hover {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.photo-list img {
+    max-width: 100%;
+}
+
+.post-list {
+    float: left;
+    width: 40%;
+    height: 700px;
+    margin-top: 10px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.news:after {
+    content: '';
+    position: absolute;
+    right: 5px;
+    display: inline-block;
+    width: 35px;
+    height: 25px;
+    background: url(../images/project/news.png) no-repeat center;
+    background-size: contain;
+}
+
+.child-title {
+    font-size: 1.5em;
+    line-height: 50px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.post-list li {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 7px 20px;
+    border-bottom: 1px solid #c9c9c9;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.birthday-remind {
+    height: 150px;
+    width: 58.5%;
+    margin-top: 10px;
+    padding: 20px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.birthday-remind img{
+    width: 120px;
+    margin-right: 30px;
+}
+
+.birthday-remind .name {
+    line-height: 45px;
+    font-size: 18px;
+}
+
+.video-list {
+    width: 58.5%;
+    height: 540px;
+    margin-top: 10px;
+    background: #fff;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.video-list .list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 20px;
+}
+
+.video-list video {
+    width: 150px;
+    height: 150px;
+    background: #e6e6e6;
+}
+
+.video-list .list div {
+    position: relative;
+    margin-bottom: 10px;
+    cursor: pointer;
+    opacity: .9;
+    transition: all .4s;
+}
+
+.video-list .list div:hover {
+    opacity: 1;
+}
+
+.video-list .list div:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: inline-block;
+    background: url(../images/project/playbtn.png) no-repeat center;
+    background-size: 40px 40px;
+    opacity: .7;
+    transition: all .4s;
+}
+
+.video-list .list div:hover:before {
+    opacity: 1;
+    background-size: 45px 45px;
+}

@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Home</title>
-
+<meta charset="UTF-8">
 	<link href="bootstrap-wysiwyg/font-awesome.css" type="text/css" rel="stylesheet" media="all">
 	<link href="css/bootstrap/bootstrap.css" type="text/css" rel="stylesheet" media="all">
 	<link href="css/style.css" type="text/css" rel="stylesheet" media="all">
@@ -15,31 +15,16 @@
 	<link href="bootstrap-wysiwyg/google-code-prettify/prettify.css" type="text/css" rel="stylesheet" media="all">
 	<!--<link href="bootstrap-wysiwyg/bootstrap-combined.no-icons.min.css" type="text/css" rel="stylesheet">-->
 	<link href="css/common.css" type="text/css" rel="stylesheet" media="all">
-	<link href="layer/theme/default/layer.css" type="text/css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="css/index.css">
 	<!--<link href="bootstrap-wysiwyg/bootstrap-responsive.min.css" type="text/css" rel="stylesheet" media="all">-->
 
-	<script src="js/jquery.2.1.1.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap/bootstrap-3.1.1.min.js"></script>
-	<script src="js/bootstrap/moment.js"> </script>
-	<script src="js/bootstrap/moment-zh-cn.js"> </script>
-	<script src="js/bootstrap/bootstrap-datetimepicker.js"> </script>
-	<script src="bootstrap-wysiwyg/jquery.hotkeys.js"> </script>
-	<script src="bootstrap-wysiwyg/google-code-prettify/prettify.js"> </script>
-	<script src="bootstrap-wysiwyg/bootstrap-wysiwyg.js"> </script>
-	<script src="js/bootstrap/fileinput.js"> </script>
-	<script src="js/bootstrap/zh.js"> </script>
-	<script src="js/cropper/cropper.js"> </script>
-	<script src="js/cropper/sitelogo.js"> </script>
-	<script src="js/common/common.js"> </script>
-	<script src="js/common/commonValidation.js"> </script>
-	<script src="js/html2canvas.min.js"> </script>
-	<script src="layer/layer.js"> </script>
-	<script src="js/index.js"> </script>
 </head>
 <body width="1366px">
+<img class="logo-icon" src="images/project/logo.png" alt="">
 <!-- content -->
 <div class="top-header" >
 	 <div class="container width-7 margin-top-3" >
+         <img class="family-icon" src="images/project/family.png" alt="">
 		  <nav class="navbar navbar-default">
 			  <div class="container-fluid" >
 				 <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,7 +47,7 @@
 							  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><img id="head_image_show" src="images/headImage/headImage.jpg" style="width:20px;height:20px;" alt=""/>Batman</a>
 							  <ul class="dropdown-menu">
 								<li><a href="#" onclick="openSettingPart()">个人设置</a></li>
-								<li><a href="#" onclick="loginOut()">注销</a></li>
+								<li><a href="#">注销</a></li>
 							  </ul>
 						  </li>
 					  </ul>
@@ -74,105 +59,156 @@
 <div class="content">
 	<!---->
 	<div class="container" style="background-color: #080808;width:67%" >
+		<!--首页-->
+		<div class="index-page">
+			<div class="photo-list">
+                <div><img src="img/img001.jpg" alt=""></div>
+                <div><img src="img/img002.jpg" alt=""></div>
+                <div><img src="img/img003.jpg" alt=""></div>
+                <div><img src="img/img004.JPG" alt=""></div>
+                <div><img src="img/img005.JPG" alt=""></div>
+                <div><img src="img/img006.JPG" alt=""></div>
+                <div><img src="img/img007.jpg" alt=""></div>
+                <div><img src="img/img008.JPG" alt=""></div>
+                <div><img src="img/img001.jpg" alt=""></div>
+                <div><img src="img/img002.jpg" alt=""></div>
+                <div><img src="img/img003.jpg" alt=""></div>
+                <div><img src="img/img004.JPG" alt=""></div>
+                <div><img src="img/img005.JPG" alt=""></div>
+                <div><img src="img/img006.JPG" alt=""></div>
+                <div><img src="img/img007.jpg" alt=""></div>
+                <div><img src="img/img008.JPG" alt=""></div>
+            </div>
+            <div class="post-list">
+                <p class="child-title">主题帖</p>
+                <ul>
+                    <li>11111111111111111</li>
+                    <li>2222222222222222</li>
+                    <li>333333333333333333</li>
+                    <li>4444444444444444444</li>
+                    <li>555555555555555555555</li>
+                    <li>6666666666666666666666666666</li>
+                    <li>7777777777777</li>
+                    <li>88888888888888888888</li>
+                    <li>11111111111111111</li>
+                    <li>2222222222222222</li>
+                    <li>333333333333333333</li>
+                    <li>4444444444444444444</li>
+                    <li>555555555555555555555</li>
+                </ul>
+            </div>
+            <div class="birthday-remind pull-right">
+                <img class="pull-left" src="images/project/salute.jpg" alt="">
+                <div class="name">哟哟哟！<span style="font-size: 20px; color: red;">吴志远</span><br>将于 <span style="color: blue">2018-2-29</span> 生日</div>
+            </div>
+            <div class="video-list pull-right">
+                <p class="child-title">视频</p>
+                <div class="list">
+                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                </div>
+            </div>
+		</div>
+		<!--首页 end-->
+
 
 		<!-- 主题帖 -->
 		<div id="article_manage" name="model1" hidden>
 			<div style="padding-top:10px">
 				<div id="article_list_show" name="model_article">
-					<button class="btn btn-primary" onclick="openForm('create_article_form','model_article')">发帖</button>
+					<button class="btn btn-primary margin-btm-10" onclick="openForm('create_article_form','model_article')">发帖</button>
 					<ul id="article_list"></ul>
 				</div>
 				<div id="article_show"  name="model_article" hidden>
-					<button class="btn btn-primary" onclick="openForm('article_list_show','model_article')">返回</button>
-					<table class="table table-bordered">
-						<tr>
-							<td>标题</td>
-							<td id="article_title"></td>
-						</tr>
-						<tr>
-							<td>内容</td>
-							<td id="article_content" class="editor"></td>
-						</tr>
-						<tbody id="comment_list"></tbody>
-						<tr>
-							<td>回复</td>
-							<td><input type="text" id="reply_article0" /><button onclick="replyArticle('','','reply_article0')">回复</button></td>
-						</tr>
-					</table>
+					<button class="btn btn-primary margin-btm-10" onclick="openForm('article_list_show','model_article')">返回</button>
+                    <butotn class="btn btn-danger margin-btm-10" id="del_btn">删除</butotn>
+					<div class="post-content">
+						<h3 id="article_title"></h3>
+                        <div id="article_content"></div>
+                        <div class="pull-right">
+                            <span id="create_author">吴志远</span> 创建于
+                            <span id="article_create_time">2018-04-01</span>
+                        </div>
+
+                        <p id="comment_list"></p>
+                        <div class="reply-content">
+                            <textarea name="" id="reply_article0" cols="30" rows="10"></textarea>
+                            <span class="btn btn-primary btn-comment" onclick="replyArticle('','','reply_article0')">发表</span>
+                        </div>
+					</div>
 				</div>
 				<div id="create_article_form"  name="model_article" hidden>
-					<table class="table table-bordered" >
-						<input type="hidden" id="article_id" name="id" />
-						<tr>
-							<td>标题</td>
-							<td><input type="text" name="title" class="center-block"/> </td>
-						</tr>
-						<tr>
-							<td>内容</td>
-							<td>
-								<div>
-									<div class="btn-toolbar" data-role="editor-toolbar" data-target="#article_editor">
-										<div class="btn-group">
-											<a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
-											<ul class="dropdown-menu">
-												<li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li>
-												<li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li>
-												<li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li>
-												<li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li>
-												<li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li>
-												<li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li>
-												<li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li>
-												<li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li>
-												<li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li>
-												<li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li>
-												<li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li>
-												<li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li>
-												<li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li>
-												<li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li>
-												<li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li>
-											</ul>
-										</div>
-										<div class="btn-group editor-group">
-											<a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
-											<ul class="dropdown-menu">
-												<li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
-												<li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
-												<li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
-											</ul>
-										</div>
-										<div class="btn-group">
-											<a class="btn editor-btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
-											<a class="btn editor-btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
-											<a class="btn editor-btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
-											<a class="btn editor-btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
-										</div>
-										<div class="btn-group">
-											<a class="btn editor-btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
-											<a class="btn editor-btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
-											<a class="btn editor-btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
-											<a class="btn editor-btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
-										</div>
-										<div class="btn-group">
-											<a class="btn editor-btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
-											<a class="btn editor-btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
-											<a class="btn editor-btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
-											<a class="btn editor-btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
-										</div>
+					<button class="btn btn-primary margin-btm-10" onclick="openForm('article_list_show','model_article')">返回</button>
+					<div class="publish-post">
+						<span class="title">标题</span>
+                        <input type="hidden" name="id"/>
+						<input class="post-title" type="text" name="title"/>
+                        <div class="editor-content">
+                            <div class="btn-toolbar" data-role="editor-toolbar" data-target="#article_editor">
+                                <div class="btn-group">
+                                    <a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font"><i class="icon-font"></i><b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a data-edit="fontName Serif" style="font-family:'Serif'">Serif</a></li>
+                                        <li><a data-edit="fontName Sans" style="font-family:'Sans'">Sans</a></li>
+                                        <li><a data-edit="fontName Arial" style="font-family:'Arial'">Arial</a></li>
+                                        <li><a data-edit="fontName Arial Black" style="font-family:'Arial Black'">Arial Black</a></li>
+                                        <li><a data-edit="fontName Courier" style="font-family:'Courier'">Courier</a></li>
+                                        <li><a data-edit="fontName Courier New" style="font-family:'Courier New'">Courier New</a></li>
+                                        <li><a data-edit="fontName Comic Sans MS" style="font-family:'Comic Sans MS'">Comic Sans MS</a></li>
+                                        <li><a data-edit="fontName Helvetica" style="font-family:'Helvetica'">Helvetica</a></li>
+                                        <li><a data-edit="fontName Impact" style="font-family:'Impact'">Impact</a></li>
+                                        <li><a data-edit="fontName Lucida Grande" style="font-family:'Lucida Grande'">Lucida Grande</a></li>
+                                        <li><a data-edit="fontName Lucida Sans" style="font-family:'Lucida Sans'">Lucida Sans</a></li>
+                                        <li><a data-edit="fontName Tahoma" style="font-family:'Tahoma'">Tahoma</a></li>
+                                        <li><a data-edit="fontName Times" style="font-family:'Times'">Times</a></li>
+                                        <li><a data-edit="fontName Times New Roman" style="font-family:'Times New Roman'">Times New Roman</a></li>
+                                        <li><a data-edit="fontName Verdana" style="font-family:'Verdana'">Verdana</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group editor-group">
+                                    <a class="btn editor-btn dropdown-toggle" data-toggle="dropdown" title="Font Size"><i class="icon-text-height"></i>&nbsp;<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a data-edit="fontSize 5"><font size="5">Huge</font></a></li>
+                                        <li><a data-edit="fontSize 3"><font size="3">Normal</font></a></li>
+                                        <li><a data-edit="fontSize 1"><font size="1">Small</font></a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn editor-btn" data-edit="bold" title="Bold (Ctrl/Cmd+B)"><i class="icon-bold"></i></a>
+                                    <a class="btn editor-btn" data-edit="italic" title="Italic (Ctrl/Cmd+I)"><i class="icon-italic"></i></a>
+                                    <a class="btn editor-btn" data-edit="strikethrough" title="Strikethrough"><i class="icon-strikethrough"></i></a>
+                                    <a class="btn editor-btn" data-edit="underline" title="Underline (Ctrl/Cmd+U)"><i class="icon-underline"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn editor-btn" data-edit="insertunorderedlist" title="Bullet list"><i class="icon-list-ul"></i></a>
+                                    <a class="btn editor-btn" data-edit="insertorderedlist" title="Number list"><i class="icon-list-ol"></i></a>
+                                    <a class="btn editor-btn" data-edit="outdent" title="Reduce indent (Shift+Tab)"><i class="icon-indent-left"></i></a>
+                                    <a class="btn editor-btn" data-edit="indent" title="Indent (Tab)"><i class="icon-indent-right"></i></a>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn editor-btn" data-edit="justifyleft" title="Align Left (Ctrl/Cmd+L)"><i class="icon-align-left"></i></a>
+                                    <a class="btn editor-btn" data-edit="justifycenter" title="Center (Ctrl/Cmd+E)"><i class="icon-align-center"></i></a>
+                                    <a class="btn editor-btn" data-edit="justifyright" title="Align Right (Ctrl/Cmd+R)"><i class="icon-align-right"></i></a>
+                                    <a class="btn editor-btn" data-edit="justifyfull" title="Justify (Ctrl/Cmd+J)"><i class="icon-align-justify"></i></a>
+                                </div>
 
-										<div class="btn-group">
-											<a class="btn editor-btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
-											<input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;"/>
-										</div>
-										<div class="btn-group">
-											<a class="btn editor-btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
-											<a class="btn editor-btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
-										</div>
-									</div>
-								</div>
-									<div id="article_editor" class="editor" style="margin-top: 10px"></div>
-							</td>
-						</tr>
-					</table>
+                                <div class="btn-group">
+                                    <a class="btn editor-btn" title="Insert picture (or just drag & drop)" id="pictureBtn"><i class="icon-picture"></i></a>
+                                    <input type="file" data-role="magic-overlay" data-target="#pictureBtn" data-edit="insertImage" style="opacity: 0; position: absolute; top: 0px; left: 0px; width: 41px; height: 30px;"/>
+                                </div>
+                                <div class="btn-group">
+                                    <a class="btn editor-btn" data-edit="undo" title="Undo (Ctrl/Cmd+Z)"><i class="icon-undo"></i></a>
+                                    <a class="btn editor-btn" data-edit="redo" title="Redo (Ctrl/Cmd+Y)"><i class="icon-repeat"></i></a>
+                                </div>
+                            </div>
+                            <div id="article_editor" class="editor" style="margin-top: 10px"></div>
+                        </div>
+					</div>
+
 					<button class="btn btn-primary pull-right" onclick="createArticle('create_article_form','article_editor')">发表</button>
 				</div>
 			</div>
@@ -483,5 +519,21 @@
 </div>
 
 
+<script src="js/jquery.2.1.1.min.js"></script>
+<script type="text/javascript" src="js/bootstrap/bootstrap-3.1.1.min.js"></script>
+<script src="js/bootstrap/moment.js"> </script>
+<script src="js/bootstrap/moment-zh-cn.js"> </script>
+<script src="js/bootstrap/bootstrap-datetimepicker.js"> </script>
+<script src="bootstrap-wysiwyg/jquery.hotkeys.js"> </script>
+<script src="bootstrap-wysiwyg/google-code-prettify/prettify.js"> </script>
+<script src="bootstrap-wysiwyg/bootstrap-wysiwyg.js"> </script>
+<script src="js/bootstrap/fileinput.js"> </script>
+<script src="js/bootstrap/zh.js"> </script>
+<script src="js/cropper/cropper.js"> </script>
+<script src="js/cropper/sitelogo.js"> </script>
+<script src="js/common/common.js"> </script>
+<script src="js/common/commonValidation.js"> </script>
+<script src="js/html2canvas.min.js"> </script>
+<script src="js/index.js"> </script>
 </body>
 </html>
