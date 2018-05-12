@@ -16,7 +16,8 @@ var createFamilyGroup = function(formId){
     ajaxFunction(familyGroupCreateUrl,params,function(result){
 
         if(result.success){
-
+            layerMsg("创建成功");
+            window.location = "/" + newProject + "/index.html";
         }
 
     });

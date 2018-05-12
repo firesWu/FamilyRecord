@@ -92,5 +92,6 @@
             LEFT JOIN family_user fu on fu.userId =us.account
             WHERE ((MONTH(us.birthday) - MONTH(NOW()) = 0 AND DAY(us.birthday)-DAY(NOW())>=0) OR (MONTH(us.birthday) - MONTH(NOW()) = 1 AND DAY(NOW()) -  DAY(us.birthday) >=0) )
             AND fu.familyId = #{groupId}
+            ORDER BY us.birthday
         </select>
 </mapper>

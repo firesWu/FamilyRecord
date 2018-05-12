@@ -5,6 +5,7 @@
 $(function(){
     verLogin();
     judgeFamilyGroup();
+    openIndexPage();
     $('#article_editor').wysiwyg();
 
     $('#avatarInput').on('change', function(e) {
@@ -58,20 +59,97 @@ $(function(){
         })
         .blur(function () {
             $(this).css('background', '#ccc');
-        })
+        });
 });
+
+/********************************************  homePage begin ********************************************/
+var getHomePageInfoUrl = "/" + projectName + "/homePage/getHomePageInfo.do";
+
+var openIndexPage = function(){
+
+    getHomePageInfo();
+    openForm("index_page","model1");
+
+};
+
+var getHomePageInfo = function () {
+
+    var params = {topNum:10, groupId:userInfo.groupId};
+
+    ajaxFunction(getHomePageInfoUrl,params,function(result){
+        if(result.success){
+
+            var articleList = result.data.articleList;
+            var photoList = result.data.photoList;
+            var videoList = result.data.videoList;
+            var birthdayRemindingList = result.data.birthdayRemindingList;
+
+            //photoList
+            var photoListStr = "";
+            for(var i in photoList){
+                photoListStr += "<div><img src='" + "/" + projectName + "/" + photoList[i].filePath + " ' alt='' onclick='photoPreview(\""+ photoList[i].filePath+"\")' /></div>"
+            }
+            $("#index_page_photo_list").html(photoListStr);
+            //videoList
+            var videoListStr = "";
+            for(var i in videoList){
+                videoListStr += "<div><video class='img-thumbnail' src='" + "/" + projectName + "/" + videoList[i].filePath + " ' alt='' onclick='videoPreview(\""+ videoList[i].filePath+"\")' /></div>"
+            }
+            $("#index_page_video_list").html(videoListStr);
+
+            //articleList
+            var articleListStr = "";
+            for(var i in articleList){
+                articleListStr += "<li>" + articleList[i].title + "</li>"
+            }
+            $("#index_page_article_list").html(articleListStr);
+
+            //birthdayRemindingList
+            var birthdayRemindingListStr = "";
+            if(birthdayRemindingList.length != 0){
+                birthdayRemindingListStr += "<div class='name'>哟哟哟！<span style='font-size: 20px; color: red;'>" + birthdayRemindingList[0].nickName + "</span><br>将于 <span style='color: blue'>" + birthdayRemindingList[0].birthday + "</span> 生日</div>";
+            }else{
+                birthdayRemindingListStr += "<div class='name'>哟哟哟！最近没人生日</div>";
+
+            }
+
+            $("#birthday_reminding_list").append(birthdayRemindingListStr);
+
+        }
+    })
+
+};
+
 /********************************************  主题帖 begin ********************************************/
 
 var createArticleUrl = "/" + projectName + "/article/createArticle.do";
 var selectArticleUrl = "/" + projectName + "/article/selectArticle.do";
 var replyArticleUrl = "/" + projectName + "/article/replyArticle.do";
 var selectCommentUrl = "/" + projectName + "/article/selectComments.do";
+var deleteArticleUrl = "/" + projectName + "/article/deleteArticle.do";
+var articleInfo;
 
 var openArticlePart = function(){
 
     selectArticle(1);
     openForm("article_manage","model1");
 
+};
+
+var editArticle = function(){
+
+    $("#createForm_id").html(articleInfo["id"]);
+    $("#createForm_title").val(articleInfo["title"]);
+    $("#article_editor").html(articleInfo["content"]);
+
+    openForm('create_article_form','model_article');
+};
+
+var openCreateForm = function(){
+    $('#article_editor').html('');
+    $("#createForm_id").html('');
+    $("#createForm_title").val('');
+    openForm('create_article_form','model_article')
 };
 
 var createArticle = function(formId,articleId){
@@ -86,12 +164,14 @@ var createArticle = function(formId,articleId){
         if(result.success){
             selectArticle(1);
             openForm('article_list_show','model_article');
-            console.log(result.msg);
+            //console.log(result.msg);
             $('.post-title').val('');
             $('#article_editor').html('');
+            $("#createForm_id").html('');
+            $("#createForm_title").val('');
 
         }else{
-            console.log(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -102,8 +182,9 @@ var selectArticle = function(pageNum){
 
     var params = {};
     params.pageNum = pageNum || 1;
-    params.pageSize = 10;
+    params.pageSize = 100;
     params.rId = userInfo.groupId;
+    params.title = $("#title_search").val();
 
     ajaxFunction(selectArticleUrl,params,function(result){
         if(result.success){
@@ -118,16 +199,46 @@ var selectArticle = function(pageNum){
 
 };
 
-var articleInfo;
+var deleteArticle = function(id){
+
+    var params = {id:id};
+
+    ajaxFunction(deleteArticleUrl,params,function(result){
+
+        if(result.success){
+            openForm('article_list_show','model_article');
+            selectArticle(1);
+            layerMsg("删除成功");
+        }else{
+
+        }
+
+    });
+
+};
+
+var deleteArticleConfirm = function(){
+    layer.confirm('是否删除？', {
+        btn: ['删除','取消'] //按钮
+    }, function(){
+        deleteArticle(articleInfo.id);
+    });
+    event.stopPropagation();
+};
+
+
 var openArticle = function(result){
     articleInfo = result;
     for(var key in result){
         $("#article_"+key).html(result[key]);
     }
 
+    $("#article_createTime").html(result["createTime"].slice(0, 19));
+
     selectComments(1);
     openForm('article_show','model_article');
 };
+
 
 var articleCommentParentId;
 
@@ -154,7 +265,7 @@ var replyArticle = function(floor,parentId,replyContentId){
     params.comment = $("#"+replyContentId).val();
 
     if(!isNotNull(params.comment)){
-        alert("评论不允许为空");
+        layerMsg("评论不允许为空");
         return ;
     }
 
@@ -177,7 +288,7 @@ var selectComments = function(pageNum){
     var params = {};
     params.articleId = articleInfo.id;
     params.pageNum = pageNum;
-    params.pageSize = 10;
+    params.pageSize = 100;
     ajaxFunction(selectCommentUrl,params,function(result){
 
         if(result.success){
@@ -210,6 +321,8 @@ var insertAlbumUrl = "/" + projectName + "/album/insert.do";
 var selectAlbumInfoUrl = "/" + projectName + "/album/selectAlbumInfo.do";
 var selectPhotoOrVideoUrl = "/" + projectName + "/commonFile/selectPhotoOrVideo.do";
 var uploadPhotoOrVideoUrl = "/" + projectName + "/fileUpload/upload.do";
+var deleteAlbumUrl = "/" + projectName + "/album/deleteAlbum.do";
+var deletePhotoOrVideoUrl = "/" + projectName + "/commonFile/deleteCommonFile.do";
 var albumInfo = {id:1};
 
 //相册模块
@@ -235,11 +348,11 @@ var createAlbum = function(formId){
     ajaxFunction(insertAlbumUrl,params,function(result){
 
         if(result.success){
-            console.log(result.msg);
-            selectAlbumInfo();
+            layerMsg(result.msg);
+            selectAlbumInfo('album_list');
             $("#create_album").modal("hide");
         }else{
-            console.log(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -254,18 +367,24 @@ var selectAlbumInfo = function(divId){
     ajaxFunction(selectAlbumInfoUrl,params,function(result){
 
         if(result.success){
-            console.log(result.data);
+            //console.log(result.data);
             var data = result.data;
             var str = "";
 
             for(var i = 0 ; i < data.length ;i++){
-                str += "<div class='pull-left album'> <a href='#' onclick='openAlbum(" + JSON.stringify(data[i]) +")'> <img src='" + (data[i].filePath == undefined?default_album_image:"/"+projectName+"/"+data[i].filePath) +"' class='family_record_photo img-thumbnail' /> <span>" + data[i].albumName + "</span> </a> </div>";
+                str += "<div class='pull-left album del'> <a href='#' onclick='openAlbum(" + JSON.stringify(data[i]) +")'> <img src='" + (data[i].filePath == undefined?default_album_image:"/"+projectName+"/"+data[i].filePath) +"' class='family_record_photo img-thumbnail' /> <i class='del-icon hidden' onclick='layerConfirm(event,deleteAlbum," + data[i].id + ")'></i><span>" + data[i].albumName + "</span> </a> </div>";
             }
 
             $("#"+ divId).html(str);
 
+            $('.album').hover(function() {
+                $(this).find('.del-icon').removeClass('hidden');
+            }, function() {
+                $(this).find('.del-icon').addClass('hidden');
+            })
+
         }else{
-            console.log(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -286,18 +405,39 @@ var openAlbum = function(album){
             var str = "";
 
             for(var i = 0 ; i < data.length ;i++){
-                str += "<div class='pull-left album' ><img  onclick='photoPreview(\""+ data[i].filePath+"\")' src='"+"/"+projectName+"/" + (data[i].filePath) +" ' class='family_record_photo img-thumbnail' /></div>";
+                str += "<div class='pull-left album' ><img  onclick='photoPreview(\""+ data[i].filePath+"\")' src='"+"/"+projectName+"/" + (data[i].filePath) +" ' class='family_record_photo img-thumbnail' /><i class='del-icon hidden' onclick='layerConfirmCommonFile(event,deletePhotoOrVideo,"+ data[i].id +",1)'></i></div>";
             }
 
             $("#photo_list").html(str);
+            $('.album').hover(function() {
+                $(this).find('.del-icon').removeClass('hidden');
+            }, function() {
+                $(this).find('.del-icon').addClass('hidden');
+            })
+
             openForm("photo_page","model_album");
             initFileInput('upload_photo_file',"#",['jpg','png']);
         }else{
-            console.log(result.msg);
+            layerMsg(result.msg);
         }
 
     });
 
+};
+
+var deleteAlbum = function(id){
+
+    var params = {id:id};
+
+    ajaxFunction(deleteAlbumUrl,params,function(result){
+        if(result.success){
+            layerMsg("删除成功");
+            selectAlbumInfo('album_list');
+        }else{
+
+        }
+    });
+    return false;
 };
 
 var photoPreview = function(path){
@@ -321,9 +461,10 @@ var uploadPhotoCallback = function(result){
 
     if(result.success){
         openAlbum(albumInfo);
-        console.log(result.msg);
+        layerMsg(result.msg);
+        $("#upload_photo_form").html('<input id="upload_photo_file" name="photo" multiple type="file" class="file-loading" >');
     }else{
-        console.log(result.msg);
+        layerMsg(result.msg);
     }
 
 };
@@ -349,13 +490,20 @@ var selectVideoList = function(){
             var str = "";
 
             for(var i = 0 ; i < data.length ;i++){
-                str += "<div class='pull-left album' ><video  onclick='videoPreview(\""+ data[i].filePath+"\")' src='"+"/"+projectName+"/" + (data[i].filePath) +"' controls='controls' class='family_record_photo img-thumbnail' /></div>";
+                str += "<div class='pull-left album del' ><video  onclick='videoPreview(\""+ data[i].filePath+"\")' src='"+"/"+projectName+"/" + (data[i].filePath) +"' controls='controls' class='family_record_photo img-thumbnail' /><i class='del-icon hidden' onclick='layerConfirmCommonFile(event,deletePhotoOrVideo,"+ data[i].id +",2)'></i></div>";
             }
 
             $("#video_list").html(str);
             initFileInput('upload_video_file',"#",['avi','wmv','mpeg','mp4','mov','mkv','flv','f4v','m4v','rmvb','rm','3gp','dat','ts','mts','vob']);
+
+            $('.album').hover(function() {
+                $(this).find('.del-icon').removeClass('hidden');
+            }, function() {
+                $(this).find('.del-icon').addClass('hidden');
+            })
+
         }else{
-            console.log(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -386,13 +534,45 @@ var uploadVideoCallback = function(result){
 
     if(result.success){
         selectVideoList();
-        console.log(result.msg);
+        layerMsg(result.msg);
+        $("#upload_video_form").html('<input id="upload_video_file" name="photo" multiple type="file" class="file-loading" >');
     }else{
-        console.log(result.msg);
+        layerMsg(result.msg);
     }
 
 };
 
+var deletePhotoOrVideo = function(id,type){
+
+    var params = {id:id};
+
+    ajaxFunction(deletePhotoOrVideoUrl,params,function(result){
+        if(result.success){
+            layerMsg("删除成功");
+
+            if(type == 1){
+                openAlbum(albumInfo);
+            }else if(type == 2){
+                selectVideoList();
+            }
+
+        }else{
+
+        }
+    });
+
+};
+
+var layerConfirmCommonFile = function(event,method,id,type){
+    layer.confirm('是否删除？', {
+        btn: ['删除','取消'] //按钮
+    }, function(){
+        if(typeof method == "function" ){
+            method(id,type);
+        }
+    });
+    event.stopPropagation();
+};
 
 /********************************************  相册模块 end ********************************************/
 
@@ -420,7 +600,7 @@ function updateUser(formId){
 
     if(isNotNull(params.password)||isNotNull(params.repassword)){
         if(params.password != params.repassword){
-            alert("两次密码不一致");
+            layerMsg("两次密码不一致");
             return;
         }
     }
@@ -429,9 +609,9 @@ function updateUser(formId){
     ajaxFunction(updateUserUrl,params,function(result){
 
         if(result.success){
-            console.log("修改成功")
+            layerMsg("修改成功")
         }else{
-            alert(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -480,9 +660,9 @@ var addMember = function(formId){
     ajaxFunction(insertFamilyUserUrl,params,function(result){
 
         if(result.success){
-            console.log(result.msg);
+            layerMsg(result.msg);
         }else{
-            alert(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -496,7 +676,7 @@ var getMemeberList = function(){
     ajaxFunction(selectFamilyUserUrl,params,function(result){
 
         if(result.success){
-            console.log(result.data);
+            //console.log(result.data);
             var data = result.data;
             var str = "";
             for(var i = 0 ; i < data.length;i++){
@@ -505,7 +685,7 @@ var getMemeberList = function(){
             $("#member_list tbody").html(str);
 
         }else{
-            alert(result.msg);
+            layerMsg(result.msg);
         }
 
     },false);
@@ -517,9 +697,9 @@ var deleteFamilyUser = function(params){
     ajaxFunction(deleteFamilyUserUrl,params,function(result){
 
         if(result.success){
-            console.log("删除成功");
+            layerMsg("删除成功");
         }else{
-            console.log("删除失败");
+            layerMsg("删除失败");
         }
 
     });
@@ -545,7 +725,7 @@ var getMessageList = function(){
             var data = result.data;
             var str = "";
             for(var i = 0;i<data.length;i++){
-                str += "<li>" + data[i].replyNickName +"在《" + data[i].articleTitle + "》中回复您：" + data[i].comment +"</li>";
+                str += "<li style='color:#948585'>" + data[i].replyNickName +"在《" + data[i].articleTitle + "》中回复您：" + data[i].comment +"</li>";
             }
 
             $("#message_list").html(str);

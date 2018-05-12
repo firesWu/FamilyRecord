@@ -28,16 +28,16 @@
 		  <nav class="navbar navbar-default">
 			  <div class="container-fluid" >
 				 <!-- Brand and toggle get grouped for better mobile display -->
-				 <div class="navbar-header">
-					  <div class="logo">
-							<a href="index.html"><img src="" alt=""/></a>
-					 </div>
-				 </div>
+				 <!--<div class="navbar-header">-->
+					  <!--<div class="logo">-->
+							<!--<a href="index.html"><img src="" alt=""/></a>-->
+					 <!--</div>-->
+				 <!--</div>-->
 
 				 <!-- Collect the nav links, forms, and other content for toggling -->
 				  <div>
 					  <ul class="nav navbar-nav">
-						<li><a href="#">首页</a></li>
+						<li><a href="#" onclick="openIndexPage()">首页</a></li>
 						<li><a href="#" onclick="openArticlePart()">主题帖</a></li>
 						<li><a href="#" onclick="openPhotoPart()">相册</a></li>
 						<li><a href="#" onclick="openVideoPart()">视频</a></li>
@@ -56,60 +56,26 @@
 		 </nav>
 	 </div>
 </div>
-<div class="content">
+<div  class="content">
 	<!---->
 	<div class="container" style="background-color: #080808;width:67%" >
 		<!--首页-->
-		<div class="index-page">
-			<div class="photo-list">
-                <div><img src="img/img001.jpg" alt=""></div>
-                <div><img src="img/img002.jpg" alt=""></div>
-                <div><img src="img/img003.jpg" alt=""></div>
-                <div><img src="img/img004.JPG" alt=""></div>
-                <div><img src="img/img005.JPG" alt=""></div>
-                <div><img src="img/img006.JPG" alt=""></div>
-                <div><img src="img/img007.jpg" alt=""></div>
-                <div><img src="img/img008.JPG" alt=""></div>
-                <div><img src="img/img001.jpg" alt=""></div>
-                <div><img src="img/img002.jpg" alt=""></div>
-                <div><img src="img/img003.jpg" alt=""></div>
-                <div><img src="img/img004.JPG" alt=""></div>
-                <div><img src="img/img005.JPG" alt=""></div>
-                <div><img src="img/img006.JPG" alt=""></div>
-                <div><img src="img/img007.jpg" alt=""></div>
-                <div><img src="img/img008.JPG" alt=""></div>
+		<div id="index_page" name="model1" class="index-page">
+			<div id="index_page_photo_list" class="photo-list">
             </div>
             <div class="post-list">
                 <p class="child-title">主题帖</p>
-                <ul>
-                    <li>11111111111111111</li>
-                    <li>2222222222222222</li>
-                    <li>333333333333333333</li>
-                    <li>4444444444444444444</li>
-                    <li>555555555555555555555</li>
-                    <li>6666666666666666666666666666</li>
-                    <li>7777777777777</li>
-                    <li>88888888888888888888</li>
-                    <li>11111111111111111</li>
-                    <li>2222222222222222</li>
-                    <li>333333333333333333</li>
-                    <li>4444444444444444444</li>
-                    <li>555555555555555555555</li>
+                <ul id="index_page_article_list" >
                 </ul>
             </div>
-            <div class="birthday-remind pull-right">
-                <img class="pull-left" src="images/project/salute.jpg" alt="">
-                <div class="name">哟哟哟！<span style="font-size: 20px; color: red;">吴志远</span><br>将于 <span style="color: blue">2018-2-29</span> 生日</div>
+            <div id="birthday_reminding_list" class="birthday-remind pull-right">
+				<img class='pull-left' src='images/project/salute.jpg' alt=''>
+				<!--<img class="pull-left" src="images/project/salute.jpg" alt="">-->
+                <!--<div class="name">哟哟哟！<span style="font-size: 20px; color: red;">吴志远</span><br>将于 <span style="color: blue">2018-2-29</span> 生日</div>-->
             </div>
             <div class="video-list pull-right">
                 <p class="child-title">视频</p>
-                <div class="list">
-                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
-                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
-                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
-                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
-                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
-                    <div><video class="img-thumbnail" src="img/9号秘事.Inside.No.9.S03E05.中英字幕.WEB-HR.AAC.720P.x264V2.mp4"></video></div>
+                <div id="index_page_video_list" class="list">
                 </div>
             </div>
 		</div>
@@ -120,18 +86,24 @@
 		<div id="article_manage" name="model1" hidden>
 			<div style="padding-top:10px">
 				<div id="article_list_show" name="model_article">
-					<button class="btn btn-primary margin-btm-10" onclick="openForm('create_article_form','model_article')">发帖</button>
+					<button class="btn btn-primary margin-btm-10" onclick="openCreateForm()">发帖</button>
+					<div class="pull-right">
+						<input type="text" id="title_search" />
+						<button class="btn btn-primary margin-btm-10" onclick="selectArticle(1)">搜索</button>
+					</div>
+
 					<ul id="article_list"></ul>
 				</div>
 				<div id="article_show"  name="model_article" hidden>
 					<button class="btn btn-primary margin-btm-10" onclick="openForm('article_list_show','model_article')">返回</button>
-                    <butotn class="btn btn-danger margin-btm-10" id="del_btn">删除</butotn>
+					<button class="btn btn-primary margin-btm-10" onclick="editArticle()">编辑</button>
+                    <butotn class="btn btn-danger margin-btm-10" id="del_btn" onclick="deleteArticleConfirm()">删除</butotn>
 					<div class="post-content">
 						<h3 id="article_title"></h3>
                         <div id="article_content"></div>
                         <div class="pull-right">
-                            <span id="create_author">吴志远</span> 创建于
-                            <span id="article_create_time">2018-04-01</span>
+                            <span id="article_creator"></span> 创建于
+                            <span id="article_createTime"></span>
                         </div>
 
                         <p id="comment_list"></p>
@@ -145,8 +117,8 @@
 					<button class="btn btn-primary margin-btm-10" onclick="openForm('article_list_show','model_article')">返回</button>
 					<div class="publish-post">
 						<span class="title">标题</span>
-                        <input type="hidden" name="id"/>
-						<input class="post-title" type="text" name="title"/>
+                        <input type="hidden" id="createForm_id" name="id"/>
+						<input class="post-title" type="text" id="createForm_title" name="title"/>
                         <div class="editor-content">
                             <div class="btn-toolbar" data-role="editor-toolbar" data-target="#article_editor">
                                 <div class="btn-group">
@@ -226,7 +198,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<h4 class="modal-title" id="create_album_label">
-										添加成员
+										创建相册
 									</h4>
 								</div>
 								<div class="modal-body">
@@ -261,7 +233,7 @@
 							<div class="modal-content">
 								<div class="modal-header">
 									<h4 class="modal-title" id="upload_photo_label">
-										添加成员
+										上传照片
 									</h4>
 								</div>
 								<div class="modal-body">
@@ -273,7 +245,7 @@
 									<button type="button" class="btn btn-primary" data-dismiss="modal">关闭
 									</button>
 									<button type="button" class="btn btn-primary" onclick="uploadPhoto('upload_photo_form','upload_photo_modal')">
-										创建
+										上传
 									</button>
 								</div>
 							</div><!-- /.modal-content -->
@@ -281,18 +253,6 @@
 					</div>
 				</div>
 				<div id="photo_list" class="margin-top-3" style="padding-left: 30px"></div>
-				<!-- 模态框（Modal） -->
-				<div class="modal fade" id="photo_show" tabindex="-1" role="dialog" aria-labelledby="photo_show_label" aria-hidden="true">
-					<div class="modal-dialog" >
-						<div class="modal-content">
-							<div class="modal-header">
-								<div class="modal-body kv-zoom-body file-zoom-content krajee-default">
-									<img id="photo_preview" style="width:auto;height:auto;max-width:100%;max-height:100%;" class="file-preview-image kv-preview-data rotate-55608 is-landscape-gt4 file-zoom-detail" src="">
-								</div>
-							</div>
-						</div><!-- /.modal-content -->
-					</div><!-- /.modal -->
-				</div>
 			</div>
 		</div>
 		<!-- 相册模块 end -->
@@ -307,7 +267,7 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<h4 class="modal-title" id="upload_video_label">
-									添加成员
+									上传视频
 								</h4>
 							</div>
 							<div class="modal-body">
@@ -319,7 +279,7 @@
 								<button type="button" class="btn btn-primary" data-dismiss="modal">关闭
 								</button>
 								<button type="button" class="btn btn-primary" onclick="uploadVideo('upload_video_form','upload_video_modal')">
-									创建
+									上传
 								</button>
 							</div>
 						</div><!-- /.modal-content -->
@@ -328,18 +288,6 @@
 			</div>
 			<div id="video_list" class="margin-top-3" style="padding-left: 30px">
 
-			</div>
-			<!-- 模态框（Modal） -->
-			<div class="modal fade" id="video_show" tabindex="-1" role="dialog" aria-labelledby="video_show_label" aria-hidden="true">
-				<div class="modal-dialog" >
-					<div class="modal-content">
-						<div class="modal-header">
-							<div class="modal-body kv-zoom-body file-zoom-content krajee-default">
-								<video id="video_preview" controls='controls' style="width:auto;height:auto;max-width:100%;height:100%;" class="kv-preview-data file-preview-video file-zoom-detail" src="">
-							</div>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal -->
 			</div>
 		</div>
 		<!-- 视频模块 end -->
@@ -368,11 +316,11 @@
 					</div>
 					<div class="form-group input-group">
 						<label class="">密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
-						<input type="password" name="password" class=" margin-bottom-3" placeholder="生日">
+						<input type="password" name="password" class=" margin-bottom-3" placeholder="密码">
 					</div>
 					<div class="form-group input-group">
 						<label class="">确认密码：</label>
-						<input type="password" name="repassword" class=" margin-bottom-3" placeholder="生日">
+						<input type="password" name="repassword" class=" margin-bottom-3" placeholder="确认密码">
 					</div>
 					<button class="btn btn-primary" style="align-content: center" onclick="updateUser('user_form')">保存</button>
 				</div>
@@ -519,6 +467,31 @@
 </div>
 
 
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="photo_show" tabindex="-1" role="dialog" aria-labelledby="photo_show_label" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="modal-body kv-zoom-body file-zoom-content krajee-default">
+					<img id="photo_preview" style="width:auto;height:auto;max-width:100%;max-height:100%;" class="file-preview-image kv-preview-data rotate-55608 is-landscape-gt4 file-zoom-detail" src="">
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="video_show" tabindex="-1" role="dialog" aria-labelledby="video_show_label" aria-hidden="true">
+	<div class="modal-dialog" >
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="modal-body kv-zoom-body file-zoom-content krajee-default">
+					<video id="video_preview" controls='controls' style="width:auto;height:auto;max-width:100%;height:100%;" class="kv-preview-data file-preview-video file-zoom-detail" src="">
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
 <script src="js/jquery.2.1.1.min.js"></script>
 <script type="text/javascript" src="js/bootstrap/bootstrap-3.1.1.min.js"></script>
 <script src="js/bootstrap/moment.js"> </script>
@@ -529,6 +502,7 @@
 <script src="bootstrap-wysiwyg/bootstrap-wysiwyg.js"> </script>
 <script src="js/bootstrap/fileinput.js"> </script>
 <script src="js/bootstrap/zh.js"> </script>
+<script src="layer/layer.js"> </script>
 <script src="js/cropper/cropper.js"> </script>
 <script src="js/cropper/sitelogo.js"> </script>
 <script src="js/common/common.js"> </script>

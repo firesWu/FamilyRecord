@@ -3,7 +3,7 @@
  */
 
 var projectName = "FamilyRecord";
-var newProject = "newProject";
+var newProject = "FamilyRecord";
 var default_album_image = "/" + projectName + "/images/project/default_album_image.png";
 
 function ajaxFunction(url, params, fn, sync) {
@@ -105,7 +105,7 @@ var verLogin = function(){
 
             if(isNotNull(userInfo.headImageUrl)) $("#head_image_show").attr("src","/" + projectName + userInfo.headImageUrl);
 
-            console.log(userInfo);
+            //console.log(userInfo);
         }else{
             window.location = "/" + newProject + "/login.html";
         }
@@ -134,7 +134,7 @@ var openForm = function(formId,name){
 
 //初始化fileIput组件
 var initFileInput = function(id, uploadUrl,fileType){
-    console.log($("#"+id));
+    //console.log($("#"+id));
     $("#" + id).fileinput({
         language: 'zh',  //设置中文
         uploadUrl: uploadUrl,   //上传地址
@@ -174,11 +174,11 @@ function fileUpload($form,callback,params,action) {
         .insertAfter(myform);
     params.temporary_iframe_id = temporary_iframe_id;
 
+
     for(var i in params){
         myform.append("<input type='hidden' name='"+ i +"' value=' "+ params[i] +" '/>");
     }
     myform.append('<input type="hidden" name="callback" value="parent.'+callback+'" />');
-
     temp_iframe.data('deferrer', deferred);
 
     myform.attr({
@@ -192,3 +192,20 @@ function fileUpload($form,callback,params,action) {
 
     return 1;
 }
+
+var layerMsg = function(msg){
+    layer.msg(msg,{
+        time:2000
+    });
+};
+
+var layerConfirm = function(event,method,id){
+    layer.confirm('是否删除？', {
+        btn: ['删除','取消'] //按钮
+    }, function(){
+        if(typeof method == "function" ){
+            method(id);
+        }
+    });
+    event.stopPropagation();
+};

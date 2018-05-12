@@ -264,3 +264,54 @@ input, textarea {
     right: -60%;
     opacity: .85;
 }
+
+.create-group {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -150px;
+    width: 500px;
+    height: 300px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 30px #777;
+}
+
+#boring_wait h3 {
+    width: 70%;
+    margin: 50px auto;
+    line-height: 40px;
+}
+
+#boring_wait div{
+    width: 200px;
+    margin: 0 auto;
+}
+
+#boring_wait .create-btn {
+    display: block;
+    width: 200px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    line-height: 46px;
+    font-size: 18px;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0 auto;
+    text-decoration: none;
+}
+.album {
+    position: relative;
+}
+
+.album .del-icon {
+    width:30px;
+    height: 30px;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: url(../images/project/del-icon.png) no-repeat center;
+    background-size: contain;
+}

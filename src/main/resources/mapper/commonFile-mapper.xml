@@ -55,7 +55,7 @@
               common_file cf
             LEFT JOIN album_name an on cf.rId = an.id
             WHERE cf.type = 1 and cf.isDelete = 0 and an.groupId = #{groupId}
-            ORDER BY createTime LIMIT  ${topNum}
+            ORDER BY createTime DESC LIMIT  ${topNum}
         </select>
 
         <select id="selectTopVideo" parameterType="HomeRequest" resultType="CommonFile">
@@ -70,7 +70,7 @@
             FROM
                 common_file cf
             WHERE cf.type = 2 and cf.isDelete = 0  and cf.rId = #{groupId}
-            ORDER BY createTime LIMIT  ${topNum}
+            ORDER BY createTime DESC LIMIT  ${topNum}
         </select>
 
 </mapper>

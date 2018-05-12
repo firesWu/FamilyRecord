@@ -14,14 +14,20 @@
     <script src="../js/bootstrap/moment.js"> </script>
     <script src="../js/bootstrap/moment-zh-cn.js"> </script>
     <script src="../js/bootstrap/bootstrap-datetimepicker.js"> </script>
+    <script src="layer/layer.js"> </script>
     <script src="../js/common/common.js"> </script>
     <script src="../js/common/commonValidation.js"> </script>
     <script src="../js/familyManager/familyGroupCreate.js"> </script>
 </head>
 <body>
+<div class="create-group">
     <div id="boring_wait">
-        年轻人，你还没加入家庭组哟。等待别人拉你进组还是
-        <a href="javascript:;" class="pull-right" onclick="changeForm('boring_wait','family_group_form')">创建家庭组</a>
+        <h3>年轻人，你还没加入家庭组哟。等待别人拉你进组还是</h3>
+        <div>
+            <a href="javascript:;" class="create-btn" onclick="changeForm('boring_wait','family_group_form')">创建家庭组</a>
+            <a href="/FamilyRecord/index.html" class="pull-right" >刷新</a>
+        </div>
+
     </div>
 
     <div id="family_group_form" class="form-signin" hidden>
@@ -32,5 +38,6 @@
 
         <a href="javascript:;" class="pull-right" onclick="changeForm('family_group_form','boring_wait')">继续等待</a>
     </div>
+</div>
 </body>
 </html>

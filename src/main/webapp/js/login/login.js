@@ -15,7 +15,7 @@ var loginUser = function(formId){
         if(result.success){
             window.location = "/" + newProject + "/index.html";
         }else{
-            alert(result.msg);
+            layerMsg(result.msg);
         }
 
     });
@@ -35,7 +35,7 @@ var registerUser = function(formId){
         if(result.success){
             window.location = "/" + newProject + "/index.html";
         }else{
-            alert(result.msg);
+            layerMsg(result.msg);
         }
 
     });

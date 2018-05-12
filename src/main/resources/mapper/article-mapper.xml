@@ -29,6 +29,9 @@
                         <if test="rId != null and rId !=''">
                                 and rId = #{rId}
                         </if>
+                        <if test="title != null and title !=''">
+                            and title like "%"#{title}"%"
+                        </if>
                 </trim>
         </select>
 
@@ -47,6 +50,6 @@
             FROM
               article
             WHERE isDelete = 0 and rId = #{groupId}
-            ORDER BY createTime LIMIT ${topNum}
+            ORDER BY createTime DESC LIMIT ${topNum}
         </select>
 </mapper>
